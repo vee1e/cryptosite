@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="darkreader-lock" />
+    <title>Cryptonite - Cybersecurity Team</title>
+    <link rel="shortcut icon" type="image/png" href="assets/logos/favicon.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/nameglitch.css">
+    <link rel="stylesheet" href="styles/ctftime.css">
+
+</head>
+<body>
+    <div class="animated-grid-bg"></div>
+
+    <nav class="interface-nav">
+        <a class="nav-item" href="#sector-landing">Home</a>
+        <a class="nav-item" href="#sector-about">About</a>
+        <a class="nav-item" href="#sector-subsystems">Domains</a>
+        <a class="nav-item" href="#sector-achievements">Achievements</a>
+        <a class="nav-item" href="#sector-team">Team</a>
+        <a class="nav-item" href="alumni.html">Alumni</a>
+    </nav>
+
+    <div class="main-interface-wrapper">
+        <section id="sector-landing" class="data-sector">
+            <img src="assets/logos/cryptonite-outline.png" alt="Cryptonite Logo" id="logo-main" decoding="async"/>
+            <h1 class="landing-title">CRYPTONITE</h1>
+            <p class="landing-subtitle">Cybersecurity Excellence at Manipal Institute of Technology</p>
+            <a href="https://apply.cryptonitemit.in" target="_blank" class="recruitment-btn">
+                <i class="fas fa-users"></i>
+                We're Recruiting!
+            </a>
+        </section>
+
+        <section id="sector-about" class="data-sector">
+            <h2 class="sector-heading">About Us</h2>
+            <div class="terminal-window mt-4">
+                <div class="terminal-header">
+                    <div class="window-controls">
+                        <span class="control close"></span>
+                        <span class="control minimize"></span>
+                        <span class="control maximize"></span>
+                    </div>
+                    <div class="terminal-title">cryptonite@mit ~ /about</div>
+                </div>
+                <div class="terminal-output" id="terminal-about">
+                    <div class="command-block">
+                        <span class="prompt">cryptonite@mit:~$</span>
+                        <span class="command">whoami</span>
+                        <p class="output">Cryptonite is the official cybersecurity and ethical hacking student project at Manipal Institute of Technology (MAHE). We are dedicated to advancing the field of cybersecurity through research, education, and practical application.</p>
+                    </div>
+
+                    <div class="command-block">
+                        <span class="prompt">cryptonite@mit:~$</span>
+                        <span class="command">cat mission.txt</span>
+                        <p class="output">To explore cutting-edge security methodologies, analyze cryptographic systems, and develop expertise in both hardware and software security through hands-on experience and research initiatives.</p>
+                    </div>
+
+                    <div class="command-block">
+                        <span class="prompt">cryptonite@mit:~$</span>
+                        <span class="command">ls activities/</span>
+                        <ul class="output list-none">
+                            <li><span class="operator">></span> Capture-The-Flag (CTF) competitions and training</li>
+                            <li><span class="operator">></span> Research in cybersecurity and cryptography</li>
+                            <li><span class="operator">></span> Hardware and software security analysis</li>
+                            <li><span class="operator">></span> Educational workshops and knowledge sharing</li>
+                        </ul>
+                    </div>
+
+                    <div class="command-block">
+                        <span class="prompt">cryptonite@mit:~$</span>
+                        <span class="command">cat initiatives.md</span>
+                        <div class="output">
+                            We organize flagship events like <span class="keyword">Cryptober</span> and <span class="keyword">niteCTF</span>, bringing together cybersecurity enthusiasts from around the world for collaborative learning and innovation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sector-video" class="data-sector">
+            <h2 class="sector-heading">Featured Content</h2>
+            <div class="video-container-glitch mt-8 max-w-3xl mx-auto">
+                <video controls poster="https://placehold.co/1280x720/0A0A08/00E500?text=Establishing+Feed..." preload="metadata" playsinline>
+                    <source src="assets/videos/cover-video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+        <section id="sector-subsystems" class="data-sector">
+            <h2 class="sector-heading">Our Domains</h2>
+            <div class="perspective-container mt-8">
+                <div class="card-grid" id="subsystems-grid">
+                    </div>
+            </div>
+        </section>
+
+        <section id="sector-achievements" class="data-sector">
+            <h2 class="sector-heading">Achievements & Recognition</h2>
+            <div class="perspective-container mt-8">
+                <div id="achievements-grid"></div>
+            </div>
+        </section>
+
+        <section id="sector-team" class="data-sector">
+            <h2 class="sector-heading">Our Team</h2>
+            <div class="perspective-container mt-8">
+                <div class="card-grid" id="team-grid">
+                </div>
+            </div>
+
+            <div class="perspective-container mt-12">
+                <h3 class="team-section-title">Board Members</h3>
+                <div class="card-grid" id="board-members-grid">
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <footer class="interface-footer">
+        <div class="social-icons mb-3">
+            <a href="https://www.linkedin.com/company/cryptonitemit/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/Cryptonite-MIT" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/cryptonite.mit/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:teamcryptonite18@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p id="footer-text">&copy; 2024 Cryptonite - MIT Manipal. All rights reserved.</p>
+        <div class="footer-links mt-2">
+            <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+        </div>
+    </footer>
+
+
+    <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
+</body>
+</html>

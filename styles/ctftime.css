@@ -1,0 +1,28 @@
+.ctftime-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: #e40913;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+.ctftime-link:hover {
+    border: 2px solid #ffffff;
+}
+
+.ctftime-logo {
+    width: 24px;
+    height: 24px;
+}
+
+.ctftime-card {
+    text-align: center;
+    margin: 20px auto;
+}
