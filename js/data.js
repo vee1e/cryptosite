@@ -206,12 +206,6 @@ const achievements = {
         { event: "CRAW CTF @ IIT Jodhpur, Prometeo", result: "1st Place", prize: "25,000 INR" },
         { event: "RVCE X IIT Bombay Trust Lab CTF 2024", result: "2nd Place", prize: "30,000 INR" }
     ],
-    ctfRankings: [
-        { label: "Current India Rank", value: "#2" },
-        { label: "Previous Year India Rank", value: "#3" },
-        { label: "Global Rank", value: "#28" },
-        { label: "Global Rank (among college teams)", value: "#10" }
-    ],
     hackathons: [
         { event: "Smart India Hackathon 2024 @ Indian Institute of Technology Jammu", result: "1st Place", prize: "1,00,000 INR" },
         { event: "Smart India Hackathon 2023 @ NIET Noida", result: "1st Place", prize: "1,00,000 INR" },
@@ -340,27 +334,12 @@ if (achievementsGrid) {
         `<li class="achievement-item"><strong>${item.event}:</strong> ${item.result}${item.prize ? ` (${item.prize})` : ''}</li>`
     ).join('');
 
-    const ctfRankingsHTML = achievements.ctfRankings.map(item =>
-        `<div class="ctf-ranking-card">
-            <div class="ranking-label">${item.label}</div>
-            <div class="ranking-value">${item.value}</div>
-        </div>`
-    ).join('');
-
     const hackathonsHTML = achievements.hackathons.map(item =>
         `<li class="achievement-item"><strong>${item.event}:</strong> ${item.result} (${item.prize})</li>`
     ).join('');
 
     achievementsGrid.innerHTML = `
         <div class="achievements-container">
-            <div class="achievement-section">
-                <h3 class="section-title">CTF Rankings</h3>
-
-                <div class="ctf-rankings-grid">
-                    ${ctfRankingsHTML}
-                </div>
-            </div>
-
             <div class="achievement-section">
                 <h3 class="section-title">CTF Performance</h3>
                 <ul class="achievement-list">${ctfPerformanceHTML}</ul>
@@ -383,33 +362,33 @@ if (achievementsGrid) {
                     </div>
                     <a href="https://ctftime.org/team/62713/" target="_blank" class="ctftime-profile-link">VIEW FULL PROFILE</a>
                 </div>
-                    
+
                     <div class="ctftime-stats-grid">
                         <div class="stat-card country-rank">
                             <div class="stat-value" id="country-rank">-</div>
                             <div class="stat-label">India Rank</div>
                             <div class="stat-subtitle">2025</div>
                         </div>
-                        
+
                         <div class="stat-card global-rank">
                             <div class="stat-value" id="global-rank">-</div>
                             <div class="stat-label">Global Rank</div>
                             <div class="stat-subtitle">2025</div>
                         </div>
-                        
+
                         <div class="stat-card total-points">
                             <div class="stat-value" id="total-points">-</div>
                             <div class="stat-label">Total Points</div>
                             <div class="stat-subtitle">2025</div>
                         </div>
-                        
+
                         <div class="stat-card niteCTF-score">
                             <div class="stat-value" id="niteCTF-score">-</div>
                             <div class="stat-label">niteCTF Score</div>
                             <div class="stat-subtitle">2025</div>
                         </div>
                     </div>
-                    
+
                     <div class="ctftime-yearly-progress">
                         <h4>Yearly Progress</h4>
                         <div class="yearly-chart" id="yearly-chart">
