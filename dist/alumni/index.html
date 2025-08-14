@@ -16,10 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <link rel="stylesheet" href="../../styles/main.css">
-    <link rel="stylesheet" href="../../styles/components.css">
-    <link rel="stylesheet" href="../../styles/animations.css">
-    <link rel="stylesheet" href="../../styles/nameglitch.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/components.css">
+    <link rel="stylesheet" href="/styles/animations.css">
+    <link rel="stylesheet" href="/styles/nameglitch.css">
 
 </head>
 <body>
@@ -91,7 +91,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const scrollToTopBtn = document.getElementById('scroll-to-top');
-            
+
             if (scrollToTopBtn) {
                 window.addEventListener('scroll', function() {
                     if (window.pageYOffset > 300) {
@@ -100,7 +100,7 @@
                         scrollToTopBtn.classList.remove('visible');
                     }
                 }, { passive: true });
-                
+
                 scrollToTopBtn.addEventListener('click', function() {
                     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     window.scrollTo({
@@ -110,26 +110,26 @@
                 });
             }
         });
-        
+
         // Wait for the data to be loaded, then initialize alumni page
         document.addEventListener('DOMContentLoaded', function() {
             // Wait a bit more to ensure data.js has fully loaded
             setTimeout(function() {
                 const alumniGrid = document.getElementById('alumni-grid');
                 const searchInput = document.getElementById('alumni-search');
-                
+
                 // Check if alumni data is available
                 if (typeof sortedAlumniData !== 'undefined' && sortedAlumniData.length > 0) {
                     // Render alumni cards
                     if (alumniGrid) {
                         renderAlumniCards(sortedAlumniData);
                     }
-                    
+
                     // Add search functionality
                     if (searchInput) {
                         searchInput.addEventListener('input', function(e) {
                             const searchTerm = e.target.value.toLowerCase();
-                            const filteredAlumni = sortedAlumniData.filter(alumni => 
+                            const filteredAlumni = sortedAlumniData.filter(alumni =>
                                 alumni.name.toLowerCase().includes(searchTerm) ||
                                 (alumni.position && alumni.position.toLowerCase().includes(searchTerm)) ||
                                 (alumni.current && alumni.current.toLowerCase().includes(searchTerm)) ||
@@ -155,24 +155,24 @@
                         { name: "Gurmann Ajmani", batch: "2026", current: "Amazon", position: "ai head", linkedin: "https://www.linkedin.com/in/gurmann-singh-ajmani-a80a31262/" },
                         { name: "Prashant K", batch: "2026", current: "NetApp", position: "team leader", linkedin: "https://www.linkedin.com/in/prashanth-j-kumar/" }
                     ];
-                    
+
                     const sortedAlumni = alumniData.sort((a, b) => {
                         if (a.batch !== b.batch) {
                             return parseInt(b.batch) - parseInt(a.batch);
                         }
                         return a.name.localeCompare(b.name);
                     });
-                    
+
                     // Render alumni cards
                     if (alumniGrid) {
                         renderAlumniCards(sortedAlumni);
                     }
-                    
+
                     // Add search functionality
                     if (searchInput) {
                         searchInput.addEventListener('input', function(e) {
                             const searchTerm = e.target.value.toLowerCase();
-                            const filteredAlumni = sortedAlumni.filter(alumni => 
+                            const filteredAlumni = sortedAlumni.filter(alumni =>
                                 alumni.name.toLowerCase().includes(searchTerm) ||
                                 (alumni.position && alumni.position.toLowerCase().includes(searchTerm)) ||
                                 (alumni.current && alumni.current.toLowerCase().includes(searchTerm)) ||
