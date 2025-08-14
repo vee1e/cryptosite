@@ -96,6 +96,9 @@ function initializeNavigation() {
     }
 }
 
+// Initialize immediately in case DOMContentLoaded has already fired
+initializeNavigation();
+
 function initializeScrollEffects() {
     const scrollToTopBtn = document.getElementById('scroll-to-top');
     

@@ -236,6 +236,7 @@
 
 .mobile-nav.active {
     transform: translateY(0);
+    display: flex;
 }
 
 .mobile-nav-item {
