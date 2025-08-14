@@ -372,11 +372,50 @@ if (achievementsGrid) {
             </div>
 
             <div class="achievement-section">
-                <div class="ctftime-card">
-                    <a href="https://ctftime.org/team/62713/" target="_blank" class="ctftime-link" aria-label="View CTFtime Profile">
+                <div class="ctftime-stats-container">
+                                    <div class="ctftime-header">
+                    <div class="ctftime-logo-badge">
                         <img src="assets/logos/ctftime.svg" alt="CTFTime" class="ctftime-logo" loading="lazy" decoding="async">
-                        <span>View our CTFTime Profile</span>
-                    </a>
+                    </div>
+                    <h3>CTFtime Statistics</h3>
+                    <div class="ctftime-data-source" id="ctftime-data-source">
+                        <span class="data-source-text">CTFTIME API</span>
+                    </div>
+                    <a href="https://ctftime.org/team/62713/" target="_blank" class="ctftime-profile-link">VIEW FULL PROFILE</a>
+                </div>
+                    
+                    <div class="ctftime-stats-grid">
+                        <div class="stat-card country-rank">
+                            <div class="stat-value" id="country-rank">-</div>
+                            <div class="stat-label">India Rank</div>
+                            <div class="stat-subtitle">2025</div>
+                        </div>
+                        
+                        <div class="stat-card global-rank">
+                            <div class="stat-value" id="global-rank">-</div>
+                            <div class="stat-label">Global Rank</div>
+                            <div class="stat-subtitle">2025</div>
+                        </div>
+                        
+                        <div class="stat-card total-points">
+                            <div class="stat-value" id="total-points">-</div>
+                            <div class="stat-label">Total Points</div>
+                            <div class="stat-subtitle">2025</div>
+                        </div>
+                        
+                        <div class="stat-card niteCTF-score">
+                            <div class="stat-value" id="niteCTF-score">-</div>
+                            <div class="stat-label">niteCTF Score</div>
+                            <div class="stat-subtitle">2025</div>
+                        </div>
+                    </div>
+                    
+                    <div class="ctftime-yearly-progress">
+                        <h4>Yearly Progress</h4>
+                        <div class="yearly-chart" id="yearly-chart">
+                            <div class="loading-spinner">Loading...</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

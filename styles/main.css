@@ -257,6 +257,7 @@ html {
     font-family: var(--font-title);
     font-size: clamp(1.8rem, 4vw, 2.8rem);
     color: var(--color-primary-accent);
+    margin-top: 2.5rem;
     margin-bottom: 2.5rem;
     text-align: left;
     position: relative;

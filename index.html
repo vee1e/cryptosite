@@ -28,13 +28,34 @@
     <div class="animated-grid-bg"></div>
 
     <nav class="interface-nav">
-        <a class="nav-item" href="#sector-landing">Home</a>
-        <a class="nav-item" href="#sector-about">About</a>
-        <a class="nav-item" href="#sector-subsystems">Domains</a>
-        <a class="nav-item" href="#sector-achievements">Achievements</a>
-        <a class="nav-item" href="#sector-team">Team</a>
-        <a class="nav-item" href="/alumni">Alumni</a>
+        <div class="nav-brand">
+            <img src="assets/logos/cryptonite-outline.png" alt="Cryptonite" class="nav-logo" style="height: 30px;">
+        </div>
+        <div class="nav-items">
+            <a class="nav-item" href="#sector-landing">Home</a>
+            <a class="nav-item" href="#sector-about">About</a>
+            <a class="nav-item" href="#sector-video">Video</a>
+            <a class="nav-item" href="#sector-subsystems">Domains</a>
+            <a class="nav-item" href="#sector-achievements">Achievements</a>
+            <a class="nav-item" href="#sector-team">Team</a>
+            <a class="nav-item" href="/alumni">Alumni</a>
+        </div>
+        <div class="hamburger-menu" id="hamburger-menu">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
     </nav>
+
+    <div class="mobile-nav" id="mobile-nav">
+        <a class="mobile-nav-item" href="#sector-landing">Home</a>
+        <a class="mobile-nav-item" href="#sector-about">About</a>
+        <a class="mobile-nav-item" href="#sector-video">Video</a>
+        <a class="mobile-nav-item" href="#sector-subsystems">Domains</a>
+        <a class="mobile-nav-item" href="#sector-achievements">Achievements</a>
+        <a class="mobile-nav-item" href="#sector-team">Team</a>
+        <a class="mobile-nav-item" href="/alumni">Alumni</a>
+    </div>
 
     <div class="main-interface-wrapper">
         <section id="sector-landing" class="data-sector">
@@ -143,10 +164,13 @@
         </div>
         <p id="footer-text">&copy; 2024 Cryptonite - MIT Manipal. All rights reserved.</p>
         <div class="footer-links mt-2">
-            <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
+            <a href="/cryptosite/privacy-policy" class="footer-link">Privacy Policy</a>
         </div>
     </footer>
 
+    <button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <script src="js/main.js"></script>
     <script src="js/data.js"></script>
