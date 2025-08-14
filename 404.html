@@ -8,18 +8,25 @@
         // GitHub Pages routing for nested index.html files
         (function() {
             const path = window.location.pathname;
-
-            // Define your routes
+            
+            // Define your routes - adjusted for GitHub Pages structure
             const routes = {
+                '/cryptosite/privacy-policy': '/cryptosite/dist/privacy-policy/index.html',
+                '/cryptosite/alumni': '/cryptosite/dist/alumni/index.html',
                 '/privacy-policy': '/dist/privacy-policy/index.html',
                 '/alumni': '/dist/alumni/index.html'
             };
-
+            
             // Check if the current path matches any of our routes
             if (routes[path]) {
                 // Fetch the content from the nested index.html
                 fetch(routes[path])
-                    .then(response => response.text())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Page not found');
+                        }
+                        return response.text();
+                    })
                     .then(html => {
                         // Replace the entire document content
                         document.documentElement.innerHTML = html;
@@ -33,13 +40,13 @@
             } else {
                 show404Page();
             }
-
+            
             function show404Page() {
                 document.body.innerHTML = `
                     <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
                         <h1>404 - Page Not Found</h1>
                         <p>The page you're looking for doesn't exist.</p>
-                        <a href="/" style="color: #007bff; text-decoration: none;">Go back home</a>
+                        <a href="/cryptosite/" style="color: #007bff; text-decoration: none;">Go back home</a>
                     </div>
                 `;
             }
