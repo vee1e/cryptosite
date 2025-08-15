@@ -130,7 +130,7 @@ const boardMembers3rdYear = [
 const subsystemsGrid = document.getElementById('subsystems-grid');
 
 const createSubsystemCards = () => {
-    subsystemsGrid.innerHTML = '';
+    subsystemsGrid.textContent = '';
 
     if (window.innerWidth <= 900) {
         const mobileList = document.createElement('ul');
@@ -219,7 +219,7 @@ const achievements = {
 const teamGrid = document.getElementById('team-grid');
 
 const createTeamCards = () => {
-    teamGrid.innerHTML = '';
+    teamGrid.textContent = '';
 
     if (window.innerWidth <= 900) {
         const mobileList = document.createElement('ul');
@@ -284,7 +284,7 @@ const createBoardMembersCards = () => {
     const boardMembersGrid = document.getElementById('board-members-grid');
     if (!boardMembersGrid) return;
 
-    boardMembersGrid.innerHTML = '';
+    boardMembersGrid.textContent = '';
 
     if (window.innerWidth <= 900) {
         const mobileList = document.createElement('ul');
@@ -459,7 +459,7 @@ const alumniSearchInput = document.getElementById('alumni-search');
 
 const renderAlumniCards = (list) => {
     if (!alumniGrid) return;
-    alumniGrid.innerHTML = '';
+    alumniGrid.textContent = '';
 
     if (window.innerWidth <= 900) {
         const mobileList = document.createElement('ul');
@@ -469,12 +469,13 @@ const renderAlumniCards = (list) => {
             const listItem = document.createElement('li');
             listItem.classList.add(`batch-${alum.batch}`);
             listItem.innerHTML = `
-                <div class="member-info">
+                <div class="alumni-item-left">
                     <div class="member-name">${alum.name}</div>
                     <div class="member-role">${alum.position && alum.position !== '-' ? alum.position : 'Member'}</div>
+                </div>
+                <div class="alumni-item-right">
                     <div class="member-current">${alum.current}</div>
-                    <span class="member-batch">Batch of ${alum.batch}</span>
-                    ${alum.linkedin ? `<a href="${alum.linkedin}" target="_blank" class="member-linkedin"><i class="fab fa-linkedin"></i></a>` : ''}
+                    ${alum.linkedin ? `<a href="${alum.linkedin}" target="_blank" class="member-linkedin-text"><i class="fab fa-linkedin"></i><span>LinkedIn</span></a>` : ''}
                 </div>
             `;
             mobileList.appendChild(listItem);

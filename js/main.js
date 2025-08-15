@@ -1,5 +1,7 @@
 const navItems = document.querySelectorAll('.nav-item');
 const sections = document.querySelectorAll('.data-sector');
+const landingCtaMode = 'recruitment';
+const niteCtfUrl = 'https://nitectf.cryptonitemit.in/';
 
 navItems.forEach(anchor => {
     anchor.setAttribute('data-text', anchor.textContent);
@@ -60,13 +62,14 @@ if ('IntersectionObserver' in window && sections.length) {
 const year = new Date().getFullYear();
 const footerTextElement = document.getElementById('footer-text');
 if (footerTextElement) {
-    footerTextElement.innerHTML = `&copy; ${year} Cryptonite - MIT Manipal. All rights reserved.`;
+    footerTextElement.textContent = `© ${year} Cryptonite - MIT Manipal. All rights reserved.`;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeScrollEffects();
     initializeFooter();
+    initializeLandingCTA();
 });
 
 function initializeNavigation() {
@@ -124,7 +127,19 @@ function initializeScrollEffects() {
 function initializeFooter() {
     const footerTextElement = document.getElementById('footer-text');
     if (footerTextElement) {
-        footerTextElement.innerHTML = `&copy; ${year} Cryptonite - MIT Manipal. All rights reserved.`;
+        footerTextElement.textContent = `© ${year} Cryptonite - MIT Manipal. All rights reserved.`;
+    }
+}
+
+function initializeLandingCTA() {
+    const btn = document.querySelector('.recruitment-btn');
+    if (!btn) return;
+    if (landingCtaMode === 'nitectf') {
+         btn.setAttribute('href', niteCtfUrl);
+         btn.setAttribute('target', '_blank');
+         btn.innerHTML = '<i class="fas fa-bolt"></i> niteCTF IS LIVE!';
+    } else if (landingCtaMode === 'off') {
+         btn.remove();
     }
 }
 
@@ -387,8 +402,9 @@ function createYearlyChart(rating) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    fetchCTFtimeStats();
     initializeNavigation();
     initializeScrollEffects();
     initializeFooter();
-    fetchCTFtimeStats();
+    initializeLandingCTA();
 });
