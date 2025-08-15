@@ -75,13 +75,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeNavigation() {
     const hamburgerMenu = document.getElementById('hamburger-menu');
     const mobileNav = document.getElementById('mobile-nav');
-    
+
     if (hamburgerMenu && mobileNav) {
         hamburgerMenu.addEventListener('click', function() {
             hamburgerMenu.classList.toggle('active');
             mobileNav.classList.toggle('active');
         });
-        
+
         const mobileNavItems = mobileNav.querySelectorAll('.mobile-nav-item');
         mobileNavItems.forEach(item => {
             item.addEventListener('click', function() {
@@ -89,7 +89,7 @@ function initializeNavigation() {
                 mobileNav.classList.remove('active');
             });
         });
-        
+
         document.addEventListener('click', function(event) {
             if (!hamburgerMenu.contains(event.target) && !mobileNav.contains(event.target)) {
                 hamburgerMenu.classList.remove('active');
@@ -104,7 +104,7 @@ initializeNavigation();
 
 function initializeScrollEffects() {
     const scrollToTopBtn = document.getElementById('scroll-to-top');
-    
+
     if (scrollToTopBtn) {
         window.addEventListener('scroll', function() {
             if (window.pageYOffset > 300) {
@@ -113,7 +113,7 @@ function initializeScrollEffects() {
                 scrollToTopBtn.classList.remove('visible');
             }
         }, { passive: true });
-        
+
         scrollToTopBtn.addEventListener('click', function() {
             const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             window.scrollTo({
@@ -146,29 +146,29 @@ function initializeLandingCTA() {
 async function fetchCTFtimeStats() {
     const yearlyChart = document.getElementById('yearly-chart');
     if (!yearlyChart) return;
-    
+
     yearlyChart.innerHTML = '<div class="loading-spinner">Loading CTFtime data...</div>';
-    
+
     const targetUrl = 'https://ctftime.org/api/v1/teams/62713/';
     const proxyBuilders = [
+        (url) => 'https://cors-anywhere.herokuapp.com/' + url
         (url) => 'https://api.allorigins.win/get?url=' + encodeURIComponent(url),
         (url) => 'https://corsproxy.io/?' + encodeURIComponent(url),
         (url) => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url),
         (url) => 'https://thingproxy.freeboard.io/fetch/' + url,
-        (url) => 'https://cors-anywhere.herokuapp.com/' + url
     ];
-    
+
     const controllers = [];
     const timeouts = [];
-    
+
     const requests = proxyBuilders.map((build, index) => {
         const controller = new AbortController();
         controllers.push(controller);
         const individualTimeout = 3000 + (index * 500);
         const timeoutId = setTimeout(() => controller.abort(), individualTimeout);
         timeouts.push(timeoutId);
-        
-        return fetch(build(targetUrl), { 
+
+        return fetch(build(targetUrl), {
             signal: controller.signal,
             headers: {
                 'Accept': 'application/json',
@@ -185,11 +185,11 @@ async function fetchCTFtimeStats() {
                 return actualData;
             });
     });
-    
+
     const globalTimeout = setTimeout(() => {
         controllers.forEach(c => { if (!c.signal.aborted) c.abort(); });
     }, 5000);
-    
+
     try {
         const data = await Promise.any(requests);
         clearTimeout(globalTimeout);
@@ -205,32 +205,32 @@ async function fetchCTFtimeStats() {
 
 function handleFetchError(error) {
     console.error('All proxies failed:', error);
-    
+
     let errorMessage = 'Failed to load CTFtime data from all sources.';
     if (error.name === 'AbortError') {
         errorMessage = 'All requests timed out. Please check your connection.';
     }
-    
+
     const yearlyChart = document.getElementById('yearly-chart');
     if (yearlyChart) {
         yearlyChart.innerHTML = `<div class="error-message">${errorMessage}<br><button onclick="fetchCTFtimeStats()" class="retry-btn">Retry</button></div>`;
     }
-    
+
     const statElements = [
         'country-rank', 'global-rank', 'total-points', 'niteCTF-score'
     ];
-    
+
     statElements.forEach(id => {
         const element = document.getElementById(id);
         if (element) element.textContent = 'N/A';
     });
-    
+
     displayFallbackData();
 }
 
 function displayFallbackData() {
     updateDataSourceIndicator('fallback');
-    
+
     const fallbackData = {
         rating: {
             "2025": {
@@ -277,29 +277,29 @@ function displayFallbackData() {
             }
         }
     };
-    
+
     displayCTFtimeStats(fallbackData);
 }
 
 function displayCTFtimeStats(data) {
     const currentYear = '2025';
     const rating = data.rating;
-    
+
     updateDataSourceIndicator('live');
-    
+
     if (rating && rating[currentYear]) {
         const currentYearData = rating[currentYear];
-        
-        document.getElementById('country-rank').textContent = 
+
+        document.getElementById('country-rank').textContent =
             currentYearData.country_place ? `#${currentYearData.country_place}` : '-';
-        document.getElementById('global-rank').textContent = 
+        document.getElementById('global-rank').textContent =
             currentYearData.rating_place ? `#${currentYearData.rating_place}` : '-';
-        document.getElementById('total-points').textContent = 
+        document.getElementById('total-points').textContent =
             currentYearData.rating_points ? Math.round(currentYearData.rating_points) : '-';
-        document.getElementById('niteCTF-score').textContent = 
+        document.getElementById('niteCTF-score').textContent =
             currentYearData.organizer_points ? (currentYearData.organizer_points / 2).toFixed(2) : '-';
     }
-    
+
     const yearlyChart = document.getElementById('yearly-chart');
     yearlyChart.innerHTML = createYearlyChart(rating);
 }
@@ -307,7 +307,7 @@ function displayCTFtimeStats(data) {
 function updateDataSourceIndicator(type) {
     const dataSourceElement = document.getElementById('ctftime-data-source');
     const dataSourceText = dataSourceElement.querySelector('.data-source-text');
-    
+
     if (type === 'live') {
         dataSourceElement.style.background = 'rgba(16, 185, 129, 0.1)';
         dataSourceElement.style.borderColor = 'rgba(16, 185, 129, 0.3)';
@@ -323,20 +323,20 @@ function updateDataSourceIndicator(type) {
 
 function createYearlyChart(rating) {
     if (!rating) return '<div class="error-message">No rating data available</div>';
-    
+
     console.log('All rating data:', rating);
-    
-    const years = Object.keys(rating).filter(year => 
+
+    const years = Object.keys(rating).filter(year =>
         year >= '2018' && rating[year] && (rating[year].rating_points !== undefined || rating[year].country_place)
     ).sort();
-    
+
     console.log('Filtered years:', years);
-    
+
     if (years.length === 0) return '<div class="error-message">No yearly data available</div>';
-    
+
     let chartHTML = '<div class="yearly-line-chart">';
     chartHTML += '<div class="chart-area">';
-    
+
     const points = [];
     years.forEach(year => {
         const yearData = rating[year];
@@ -347,11 +347,11 @@ function createYearlyChart(rating) {
             const range = maxRating - minRating;
             const pointHeight = range > 0 ? ((ratingPoints - minRating) / range) * 100 : 0;
             const xPos = (years.indexOf(year) / (years.length - 1)) * 100;
-            
+
             points.push({ x: xPos, y: pointHeight });
-            
+
             console.log(`Year ${year}: rating=${ratingPoints}, height=${pointHeight}%, x=${xPos}%`);
-            
+
             chartHTML += `
                 <div class="chart-point" style="left: ${xPos}%; bottom: ${pointHeight}%">
                     <div class="point"></div>
@@ -359,15 +359,15 @@ function createYearlyChart(rating) {
             `;
         }
     });
-    
+
     if (points.length > 1) {
         const pathData = points.map((point, index) => {
             if (index === 0) return `M ${point.x} ${100 - point.y}`;
             return `L ${point.x} ${100 - point.y}`;
         }).join(' ');
-        
+
         const areaPath = `${pathData} L ${points[points.length - 1].x} 100 L ${points[0].x} 100 Z`;
-        
+
         chartHTML += `
             <svg class="chart-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <defs>
@@ -381,9 +381,9 @@ function createYearlyChart(rating) {
             </svg>
         `;
     }
-    
+
     chartHTML += '</div>'; // Close chart-area
-    
+
     // Add x-axis labels (exclude 2018)
     chartHTML += '<div class="x-axis">';
     years.forEach((year, idx) => {
@@ -396,11 +396,11 @@ function createYearlyChart(rating) {
         }
     });
     chartHTML += '</div>';
-    
+
     const maxRating = Math.max(...years.map(y => rating[y]?.rating_points || 0));
     const minRating = 0; // Always start from 0
     const range = maxRating - minRating;
-    
+
     chartHTML += '<div class="y-axis">';
     chartHTML += '<div class="y-label">Rating Points</div>';
     chartHTML += `<div class="y-tick" style="bottom: 0%"><span>0</span></div>`;
@@ -409,7 +409,7 @@ function createYearlyChart(rating) {
     chartHTML += `<div class="y-tick" style="bottom: 75%"><span>${Math.round(maxRating * 0.75)}</span></div>`;
     chartHTML += `<div class="y-tick" style="bottom: 100%"><span>${Math.round(maxRating)}</span></div>`;
     chartHTML += '</div>';
-    
+
     chartHTML += '</div>'; // Close yearly-line-chart
     return chartHTML;
 }
