@@ -200,18 +200,18 @@ window.addEventListener('resize', () => {
 
 const achievements = {
     ctfPerformance: [
-        { event: "NCIIPC & AICTE Pentathon 2025 @ (GGSIPU) Delhi", result: "1st Place", prize: "2,50,000 INR" },
-        { event: "BSides Bangalore — B5 + W2 (Wonder Woman) CTF", result: "1st & 2nd Place", prize: "15,000 + 7,000 INR total" },
+        { event: "NCIIPC and AICTE Pentathon 2025 at GGSIPU, Delhi", result: "1st Place", prize: "2,50,000 INR" },
+        { event: "BSides Bangalore - B5 CTF and W2 CTF", result: "1st and 2nd Place", prize: "22,000 INR" },
         { event: "GIT X IIT Bombay Trust Lab CTF 2025", result: "1st Place", prize: "25,000 INR" },
-        { event: "CRAW CTF @ IIT Jodhpur, Prometeo", result: "1st Place", prize: "25,000 INR" },
+        { event: "CRAW CTF at Prometeo, IIT Jodhpur", result: "1st Place", prize: "25,000 INR" },
         { event: "RVCE X IIT Bombay Trust Lab CTF 2024", result: "2nd Place", prize: "30,000 INR" }
     ],
     hackathons: [
-        { event: "Smart India Hackathon 2024 @ Indian Institute of Technology Jammu", result: "1st Place", prize: "1,00,000 INR" },
-        { event: "Smart India Hackathon 2023 @ NIET Noida", result: "1st Place", prize: "1,00,000 INR" },
-        { event: "Data Security Council of India (DSCI) Cyber Grand Challenge", result: "Qualified for Ideation stage", prize: "5,00,000 INR" },
-        { event: "AICS ICONIP CyberAI Cup 2024", result: "3rd Place", prize: "1000 NZD — 51,000 INR" },
-        { event: "AICS ICONIP CyberAI Cup 2023", result: "1st Place", prize: "3000 NZD — 1,53,000 INR" },
+        { event: "Smart India Hackathon 2024 at Indian Institute of Technology Jammu", result: "1st Place", prize: "1,00,000 INR" },
+        { event: "Smart India Hackathon 2023 at NIET Noida", result: "1st Place", prize: "1,00,000 INR" },
+        { event: "Data Security Council of India (DSCI) Cyber Grand Challenge", result: "Qualified 1st stage", prize: "5,00,000 INR" },
+        { event: "AICS ICONIP CyberAI Cup 2024", result: "3rd Place", prize: "1000 NZD" },
+        { event: "AICS ICONIP CyberAI Cup 2023", result: "1st Place", prize: "3000 NZD" },
         { event: "Cyber Crimes Conclave, IISc Bangalore", result: "2nd Place", prize: "1,00,000 INR" }
     ]
 };
@@ -331,22 +331,40 @@ const createBoardMembersCards = () => {
 const achievementsGrid = document.getElementById('achievements-grid');
 if (achievementsGrid) {
     const ctfPerformanceHTML = achievements.ctfPerformance.map(item =>
-        `<li class="achievement-item"><strong>${item.event}:</strong> ${item.result}${item.prize ? ` (${item.prize})` : ''}</li>`
+        `<li class="achievement-item">
+            <div class="achievement-prize">${item.prize}</div>
+            <div class="achievement-event">${item.event}</div>
+            <div class="achievement-place">${item.result}</div>
+        </li>`
     ).join('');
 
     const hackathonsHTML = achievements.hackathons.map(item =>
-        `<li class="achievement-item"><strong>${item.event}:</strong> ${item.result} (${item.prize})</li>`
+        `<li class="achievement-item">
+            <div class="achievement-prize">${item.prize}</div>
+            <div class="achievement-event">${item.event}</div>
+            <div class="achievement-place">${item.result}</div>
+        </li>`
     ).join('');
 
     achievementsGrid.innerHTML = `
         <div class="achievements-container">
             <div class="achievement-section">
                 <h3 class="section-title">CTF Performance</h3>
+                <div class="achievement-header">
+                    <div class="achievement-prize">Prize Money</div>
+                    <div class="achievement-event">Competition</div>
+                    <div class="achievement-place">Placement</div>
+                </div>
                 <ul class="achievement-list">${ctfPerformanceHTML}</ul>
             </div>
 
             <div class="achievement-section">
                 <h3 class="section-title">Hackathons & Competitions</h3>
+                <div class="achievement-header">
+                    <div class="achievement-prize">Prize Money</div>
+                    <div class="achievement-event">Competition</div>
+                    <div class="achievement-place">Placement</div>
+                </div>
                 <ul class="achievement-list">${hackathonsHTML}</ul>
             </div>
 

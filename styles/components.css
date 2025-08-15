@@ -886,12 +886,80 @@
     padding-left: 0;
 }
 
-#sector-achievements .achievement-item {
-    padding: 0.75rem 1rem;
+#sector-achievements .achievement-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1.5rem;
+    padding: 0.75rem 1.25rem;
     margin-bottom: 0.5rem;
-    border-left: 3px solid var(--color-highlight);
+    background-color: rgba(var(--color-highlight-rgb), 0.1);
+    border-radius: 8px;
+    font-weight: 600;
+    color: var(--color-highlight);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+#sector-achievements .achievement-header .achievement-prize {
+    text-align: right;
+}
+
+#sector-achievements .achievement-header .achievement-event {
+    text-align: left;
+}
+
+#sector-achievements .achievement-header .achievement-place {
+    text-align: center;
+}
+
+#sector-achievements .achievement-item {
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
     background-color: rgba(var(--color-bg-medium-rgb),0.4);
-    border-radius: 0 4px 4px 0;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+  
+#sector-achievements .achievement-prize {
+    font-weight: 700;
+    color: var(--color-highlight);
+    text-align: right;
+    white-space: nowrap;
+}
+
+#sector-achievements .achievement-event {
+    color: var(--color-text-main);
+    text-align: left;
+    line-height: 1.4;
+}
+
+#sector-achievements .achievement-place {
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    color: var(--color-highlight);
+}
+
+@media (max-width: 768px) {
+    #sector-achievements .achievement-header {
+        grid-template-columns: 1fr 1.5fr 1fr;
+        gap: 1rem;
+        padding: 0.625rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    #sector-achievements .achievement-item {
+        padding: 0.875rem 1rem;
+        margin-bottom: 0.625rem;
+        font-size: 0.9rem;
+        grid-template-columns: 1fr 1.5fr 1fr;
+        gap: 1rem;
+    }
 }
 
 #sector-achievements .achievement-item strong { color: var(--color-highlight); }
