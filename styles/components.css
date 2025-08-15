@@ -36,6 +36,7 @@
     padding: 1.5rem;
     border-radius: 0.5rem;
     background: var(--color-card-bg);
+    border: 1px solid rgba(var(--color-text-muted-rgb), 0.25);
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -48,6 +49,7 @@
     opacity: 1;
     transform: translateZ(0);
     z-index: 2;
+    text-align: center;
 }
 
 .subsystem-card-hover {
@@ -125,6 +127,7 @@
     font-weight: 600;
     color: var(--color-text);
     margin-bottom: 0.5rem;
+    text-align: center;
 }
 
 .subsystem-card-flavor-text {
@@ -133,6 +136,7 @@
     font-style: italic;
     margin-top: auto;
     margin-bottom: 0;
+    text-align: center;
 }
 
 .interface-nav {
@@ -343,8 +347,8 @@
 }
 
 .subsystem-card:hover .card-3d-content {
-    border-color: transparent;
-    box-shadow: none;
+    border-color: rgba(var(--color-primary-accent-rgb), 0.35);
+    box-shadow: 0 8px 20px rgba(var(--color-primary-accent-rgb), 0.08);
     background: linear-gradient(160deg,
         rgba(var(--color-bg-medium-rgb), 0.9),
         rgba(var(--color-bg-dark-rgb), 0.95)
@@ -834,6 +838,14 @@
     font-weight: 700;
 }
 
+#sector-about .keyword {
+    color: var(--color-highlight);
+}
+
+#sector-about .operator {
+    color: var(--color-highlight);
+}
+
 #sector-about .about-media {
     position: relative;
 }
@@ -877,12 +889,12 @@
 #sector-achievements .achievement-item {
     padding: 0.75rem 1rem;
     margin-bottom: 0.5rem;
-    border-left: 3px solid var(--color-primary-accent);
+    border-left: 3px solid var(--color-highlight);
     background-color: rgba(var(--color-bg-medium-rgb),0.4);
     border-radius: 0 4px 4px 0;
 }
 
-#sector-achievements .achievement-item strong { color: var(--color-primary-accent); }
+#sector-achievements .achievement-item strong { color: var(--color-highlight); }
 #sector-achievements .achievement-item a { color: var(--color-text-main); text-decoration: underline; text-decoration-style: dashed; }
 #sector-achievements .achievement-item a:hover { color: var(--color-highlight); text-decoration-style: solid; }
 
@@ -950,7 +962,7 @@
 .section-title {
     font-family: var(--font-title);
     font-size: 1.8rem;
-    color: var(--color-primary-accent);
+    color: var(--color-highlight);
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     font-weight: 500;
