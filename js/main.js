@@ -151,10 +151,9 @@ async function fetchCTFtimeStats() {
 
     const targetUrl = 'https://ctftime.org/api/v1/teams/62713/';
     const proxyBuilders = [
-        (url) => 'https://cors-anywhere.herokuapp.com/' + url,
+        (url) => url,
         (url) => 'https://api.allorigins.win/get?url=' + encodeURIComponent(url),
-        (url) => 'https://corsproxy.io/?' + encodeURIComponent(url),
-        (url) => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url),
+        (url) => 'https://cors-anywhere.herokuapp.com/' + url,
         (url) => 'https://thingproxy.freeboard.io/fetch/' + url,
     ];
 
@@ -164,15 +163,14 @@ async function fetchCTFtimeStats() {
     const requests = proxyBuilders.map((build, index) => {
         const controller = new AbortController();
         controllers.push(controller);
-        const individualTimeout = 3000 + (index * 500);
+        const individualTimeout = index === 0 ? 2000 : 3000 + (index * 500);
         const timeoutId = setTimeout(() => controller.abort(), individualTimeout);
         timeouts.push(timeoutId);
 
         return fetch(build(targetUrl), {
             signal: controller.signal,
             headers: {
-                'Accept': 'application/json',
-                'Cache-Control': 'no-cache'
+                'Accept': 'application/json'
             }
         })
             .then(response => {
@@ -180,9 +178,24 @@ async function fetchCTFtimeStats() {
                 return response.json();
             })
             .then(data => {
-                const actualData = data.contents ? JSON.parse(data.contents) : data;
+                let actualData;
+                if (data.contents) {
+                    try {
+                        actualData = JSON.parse(data.contents);
+                    } catch (e) {
+                        actualData = data.contents;
+                    }
+                } else {
+                    actualData = data;
+                }
                 if (!actualData || !actualData.rating) throw new Error('Invalid data format received from CTFtime API');
                 return actualData;
+            })
+            .catch(error => {
+                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+                    throw new Error('CORS or CSP blocked request');
+                }
+                throw error;
             });
     });
 
@@ -236,7 +249,7 @@ function displayFallbackData() {
             "2025": {
                 "rating_place": 28,
                 "organizer_points": 79.74,
-                "rating_points": 457.813339549,
+                "rating_points": 447.813339549,
                 "country_place": 2
             },
             "2024": {
@@ -262,6 +275,12 @@ function displayFallbackData() {
                 "organizer_points": 44.6,
                 "rating_points": 146.749375686,
                 "country_place": 11
+            },
+            "2020": {
+                "rating_place": 359,
+                "organizer_points": 0,
+                "rating_points": 84.8551139633,
+                "country_place": 25
             },
             "2019": {
                 "rating_place": 815,
@@ -299,11 +318,11 @@ function displayCTFtimeStats(data) {
     }
 
     const prevYear = (parseInt(currentYear) - 1).toString();
-    
+
     document.getElementById('prev-year-label').textContent = prevYear;
     document.getElementById('prev-year-label-2').textContent = prevYear;
     document.getElementById('prev-year-label-3').textContent = prevYear;
-    
+
     if (rating && rating[prevYear]) {
         const prevYearData = rating[prevYear];
 
@@ -311,7 +330,7 @@ function displayCTFtimeStats(data) {
             prevYearData.country_place ? `#${prevYearData.country_place}` : '-';
         document.getElementById('global-rank-prev').textContent =
             prevYearData.rating_place ? `#${prevYearData.rating_place}` : '-';
-        
+
         const prevYearTotalPoints = (prevYearData.rating_points || 0);
         document.getElementById('total-points-prev').textContent =
             prevYearTotalPoints > 0 ? Math.round(prevYearTotalPoints) : '-';
@@ -326,13 +345,9 @@ function displayCTFtimeStats(data) {
 function createYearlyChart(rating) {
     if (!rating) return '<div class="error-message">No rating data available</div>';
 
-    console.log('All rating data:', rating);
-
     const years = Object.keys(rating).filter(year =>
         year >= '2018' && rating[year] && (rating[year].rating_points !== undefined || rating[year].country_place)
     ).sort();
-
-    console.log('Filtered years:', years);
 
     if (years.length === 0) return '<div class="error-message">No yearly data available</div>';
 
@@ -351,8 +366,6 @@ function createYearlyChart(rating) {
             const xPos = (years.indexOf(year) / (years.length - 1)) * 100;
 
             points.push({ x: xPos, y: pointHeight });
-
-            console.log(`Year ${year}: rating=${ratingPoints}, height=${pointHeight}%, x=${xPos}%`);
 
             chartHTML += `
                 <div class="chart-point" style="left: ${xPos}%; bottom: ${pointHeight}%">
