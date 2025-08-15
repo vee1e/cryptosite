@@ -152,6 +152,8 @@ async function fetchCTFtimeStats() {
     const targetUrl = 'https://ctftime.org/api/v1/teams/62713/';
     const proxyBuilders = [
         (url) => 'https://api.allorigins.win/get?url=' + encodeURIComponent(url),
+        (url) => 'https://corsproxy.io/?' + encodeURIComponent(url),
+        (url) => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url),
         (url) => 'https://thingproxy.freeboard.io/fetch/' + url,
         (url) => 'https://cors-anywhere.herokuapp.com/' + url
     ];
@@ -159,26 +161,41 @@ async function fetchCTFtimeStats() {
     const controllers = [];
     const timeouts = [];
     
-    const requests = proxyBuilders.map(build => {
+    const requests = proxyBuilders.map((build, index) => {
         const controller = new AbortController();
         controllers.push(controller);
-        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        const individualTimeout = 3000 + (index * 500);
+        const timeoutId = setTimeout(() => controller.abort(), individualTimeout);
         timeouts.push(timeoutId);
-        return fetch(build(targetUrl), { signal: controller.signal })
+        
+        return fetch(build(targetUrl), { 
+            signal: controller.signal,
+            headers: {
+                'Accept': 'application/json',
+                'Cache-Control': 'no-cache'
+            }
+        })
             .then(response => {
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 return response.json();
             })
             .then(data => {
-                if (!data || !data.rating) throw new Error('Invalid data format received from CTFtime API');
-                return data;
+                const actualData = data.contents ? JSON.parse(data.contents) : data;
+                if (!actualData || !actualData.rating) throw new Error('Invalid data format received from CTFtime API');
+                return actualData;
             });
     });
     
+    const globalTimeout = setTimeout(() => {
+        controllers.forEach(c => { if (!c.signal.aborted) c.abort(); });
+    }, 5000);
+    
     try {
         const data = await Promise.any(requests);
+        clearTimeout(globalTimeout);
         displayCTFtimeStats(data);
     } catch (error) {
+        clearTimeout(globalTimeout);
         handleFetchError(error);
     } finally {
         timeouts.forEach(id => clearTimeout(id));
