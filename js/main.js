@@ -149,44 +149,40 @@ async function fetchCTFtimeStats() {
     
     yearlyChart.innerHTML = '<div class="loading-spinner">Loading CTFtime data...</div>';
     
-    const proxies = [
-        'https://api.allorigins.win/raw?url=',
-        'https://cors-anywhere.herokuapp.com/',
-        'https://thingproxy.freeboard.io/fetch/'
+    const targetUrl = 'https://ctftime.org/api/v1/teams/62713/';
+    const proxyBuilders = [
+        (url) => 'https://api.allorigins.win/get?url=' + encodeURIComponent(url),
+        (url) => 'https://thingproxy.freeboard.io/fetch/' + url,
+        (url) => 'https://cors-anywhere.herokuapp.com/' + url
     ];
     
-    for (let i = 0; i < proxies.length; i++) {
-        try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 15000);
-            
-            const corsProxy = proxies[i];
-            const targetUrl = 'https://ctftime.org/api/v1/teams/62713/';
-            
-            const response = await fetch(corsProxy + encodeURIComponent(targetUrl), {
-                signal: controller.signal
+    const controllers = [];
+    const timeouts = [];
+    
+    const requests = proxyBuilders.map(build => {
+        const controller = new AbortController();
+        controllers.push(controller);
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        timeouts.push(timeoutId);
+        return fetch(build(targetUrl), { signal: controller.signal })
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                if (!data || !data.rating) throw new Error('Invalid data format received from CTFtime API');
+                return data;
             });
-            
-            clearTimeout(timeoutId);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            
-            if (!data || !data.rating) {
-                throw new Error('Invalid data format received from CTFtime API');
-            }
-            
-            displayCTFtimeStats(data);
-            return;
-        } catch (error) {
-            console.error(`Proxy ${i + 1} failed:`, error);
-            if (i === proxies.length - 1) {
-                handleFetchError(error);
-            }
-        }
+    });
+    
+    try {
+        const data = await Promise.any(requests);
+        displayCTFtimeStats(data);
+    } catch (error) {
+        handleFetchError(error);
+    } finally {
+        timeouts.forEach(id => clearTimeout(id));
+        controllers.forEach(c => { if (!c.signal.aborted) c.abort(); });
     }
 }
 
