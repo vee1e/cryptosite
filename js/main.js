@@ -151,7 +151,7 @@ async function fetchCTFtimeStats() {
 
     const targetUrl = 'https://ctftime.org/api/v1/teams/62713/';
     const proxyBuilders = [
-        (url) => 'https://cors-anywhere.herokuapp.com/' + url
+        (url) => 'https://cors-anywhere.herokuapp.com/' + url,
         (url) => 'https://api.allorigins.win/get?url=' + encodeURIComponent(url),
         (url) => 'https://corsproxy.io/?' + encodeURIComponent(url),
         (url) => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url),
