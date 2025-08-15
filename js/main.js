@@ -1,7 +1,7 @@
 const navItems = document.querySelectorAll('.nav-item');
 const sections = document.querySelectorAll('.data-sector');
-const landingCtaMode = 'recruitment';
 const niteCtfUrl = 'https://nitectf.cryptonitemit.in/';
+const landingCtaMode = 'recruitments'; // nitectf, recruitment, off -- change this to change the landing cta
 
 navItems.forEach(anchor => {
     anchor.setAttribute('data-text', anchor.textContent);
@@ -217,7 +217,7 @@ function handleFetchError(error) {
     }
 
     const statElements = [
-        'country-rank', 'global-rank', 'total-points', 'niteCTF-score'
+        'country-rank', 'global-rank', 'total-points', 'country-rank-prev', 'global-rank-prev', 'total-points-prev'
     ];
 
     statElements.forEach(id => {
@@ -229,7 +229,7 @@ function handleFetchError(error) {
 }
 
 function displayFallbackData() {
-    updateDataSourceIndicator('fallback');
+
 
     const fallbackData = {
         rating: {
@@ -285,7 +285,7 @@ function displayCTFtimeStats(data) {
     const currentYear = '2025';
     const rating = data.rating;
 
-    updateDataSourceIndicator('live');
+
 
     if (rating && rating[currentYear]) {
         const currentYearData = rating[currentYear];
@@ -296,30 +296,32 @@ function displayCTFtimeStats(data) {
             currentYearData.rating_place ? `#${currentYearData.rating_place}` : '-';
         document.getElementById('total-points').textContent =
             currentYearData.rating_points ? Math.round(currentYearData.rating_points) : '-';
-        document.getElementById('niteCTF-score').textContent =
-            currentYearData.organizer_points ? (currentYearData.organizer_points / 2).toFixed(2) : '-';
+    }
+
+    const prevYear = (parseInt(currentYear) - 1).toString();
+    
+    document.getElementById('prev-year-label').textContent = prevYear;
+    document.getElementById('prev-year-label-2').textContent = prevYear;
+    document.getElementById('prev-year-label-3').textContent = prevYear;
+    
+    if (rating && rating[prevYear]) {
+        const prevYearData = rating[prevYear];
+
+        document.getElementById('country-rank-prev').textContent =
+            prevYearData.country_place ? `#${prevYearData.country_place}` : '-';
+        document.getElementById('global-rank-prev').textContent =
+            prevYearData.rating_place ? `#${prevYearData.rating_place}` : '-';
+        
+        const prevYearTotalPoints = (prevYearData.rating_points || 0);
+        document.getElementById('total-points-prev').textContent =
+            prevYearTotalPoints > 0 ? Math.round(prevYearTotalPoints) : '-';
     }
 
     const yearlyChart = document.getElementById('yearly-chart');
     yearlyChart.innerHTML = createYearlyChart(rating);
 }
 
-function updateDataSourceIndicator(type) {
-    const dataSourceElement = document.getElementById('ctftime-data-source');
-    const dataSourceText = dataSourceElement.querySelector('.data-source-text');
 
-    if (type === 'live') {
-        dataSourceElement.style.background = 'rgba(16, 185, 129, 0.1)';
-        dataSourceElement.style.borderColor = 'rgba(16, 185, 129, 0.3)';
-        dataSourceText.textContent = 'CTFTIME API';
-        dataSourceText.className = 'data-source-text';
-    } else {
-        dataSourceElement.style.background = 'rgba(255, 170, 0, 0.1)';
-        dataSourceElement.style.borderColor = 'rgba(255, 170, 0, 0.3)';
-        dataSourceText.textContent = 'Using cached data (API unavailable)';
-        dataSourceText.className = 'data-source-text fallback';
-    }
-}
 
 function createYearlyChart(rating) {
     if (!rating) return '<div class="error-message">No rating data available</div>';
@@ -404,10 +406,11 @@ function createYearlyChart(rating) {
     chartHTML += '<div class="y-axis">';
     chartHTML += '<div class="y-label">Rating Points</div>';
     chartHTML += `<div class="y-tick" style="bottom: 0%"><span>0</span></div>`;
-    chartHTML += `<div class="y-tick" style="bottom: 25%"><span>${Math.round(maxRating * 0.25)}</span></div>`;
-    chartHTML += `<div class="y-tick" style="bottom: 50%"><span>${Math.round(maxRating * 0.5)}</span></div>`;
-    chartHTML += `<div class="y-tick" style="bottom: 75%"><span>${Math.round(maxRating * 0.75)}</span></div>`;
-    chartHTML += `<div class="y-tick" style="bottom: 100%"><span>${Math.round(maxRating)}</span></div>`;
+    chartHTML += `<div class="y-tick" style="bottom: 20%"><span>100</span></div>`;
+    chartHTML += `<div class="y-tick" style="bottom: 40%"><span>200</span></div>`;
+    chartHTML += `<div class="y-tick" style="bottom: 60%"><span>300</span></div>`;
+    chartHTML += `<div class="y-tick" style="bottom: 80%"><span>400</span></div>`;
+    chartHTML += `<div class="y-tick" style="bottom: 100%"><span>500</span></div>`;
     chartHTML += '</div>';
 
     chartHTML += '</div>'; // Close yearly-line-chart

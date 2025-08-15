@@ -906,11 +906,13 @@
     font-size: 0.8rem;
     color: var(--color-text-muted);
     margin-left: auto;
+    padding-top: 0 !important;
     margin-right: auto;
 }
 
 .interface-footer #footer-text {
      color: var(--color-text-muted);
+     padding-bottom: 1rem;
 }
 
 .interface-footer .social-icons a {

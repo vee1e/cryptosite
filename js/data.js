@@ -357,9 +357,7 @@ if (achievementsGrid) {
                         <img src="assets/logos/ctftime.svg" alt="CTFTime" class="ctftime-logo" loading="lazy" decoding="async">
                     </div>
                     <h3>CTFtime Statistics</h3>
-                    <div class="ctftime-data-source" id="ctftime-data-source">
-                        <span class="data-source-text">CTFTIME API</span>
-                    </div>
+
                     <a href="https://ctftime.org/team/62713/" target="_blank" class="ctftime-profile-link">VIEW FULL PROFILE</a>
                 </div>
 
@@ -382,10 +380,22 @@ if (achievementsGrid) {
                             <div class="stat-subtitle">2025</div>
                         </div>
 
-                        <div class="stat-card niteCTF-score">
-                            <div class="stat-value" id="niteCTF-score">-</div>
-                            <div class="stat-label">niteCTF Score</div>
-                            <div class="stat-subtitle">2025</div>
+                        <div class="stat-card country-rank-prev">
+                            <div class="stat-value" id="country-rank-prev">-</div>
+                            <div class="stat-label">India Rank</div>
+                            <div class="stat-subtitle" id="prev-year-label">-</div>
+                        </div>
+
+                        <div class="stat-card global-rank-prev">
+                            <div class="stat-value" id="global-rank-prev">-</div>
+                            <div class="stat-label">Global Rank</div>
+                            <div class="stat-subtitle" id="prev-year-label-2">-</div>
+                        </div>
+
+                        <div class="stat-card total-points-prev">
+                            <div class="stat-value" id="total-points-prev">-</div>
+                            <div class="stat-label">Total Points</div>
+                            <div class="stat-subtitle" id="prev-year-label-3">-</div>
                         </div>
                     </div>
 
@@ -415,7 +425,7 @@ const alumniData = [
     { name: "Kaustubh Mangalwedhekar",  batch: "2023", current: "Microsoft",                  position: "cryptography head",        linkedin: "https://www.linkedin.com/in/kaustubh3574/" },
     { name: "Nithin Chowdary Garapati", batch: "2023", current: "Cisco",                      position: "-",                        linkedin: "https://www.linkedin.com/in/nithin-chowdary-garapati-795432192/" },
     { name: "Rajat Agarwal",            batch: "2023", current: "WellsFargo",                 position: "attack/defense head",      linkedin: "https://www.linkedin.com/in/rajat18agarwal/" },
-    { name: "Rasesh Rajpopat",          batch: "2023", current: "CMU, Sabre India",           position: "-",                        linkedin: "https://www.linkedin.com/in/rasesh-rajpopat-a577111b1" },
+    { name: "Rasesh Rajpopat",          batch: "2023", current: "Carnegie Mellon University", position: "-",                        linkedin: "https://www.linkedin.com/in/rasesh-rajpopat-a578111b1" },
     { name: "Sai Charan Teja Ande",     batch: "2023", current: "Cisco",                      position: "-",                        linkedin: "https://www.linkedin.com/in/sai-charan-teja-ande/" },
     { name: "Sohom Datta",              batch: "2023", current: "PhD at NCSU",                position: "reverse engineering head", linkedin: "https://www.linkedin.com/in/sohom-datta-c29ob20k/" },
 
@@ -465,7 +475,7 @@ const renderAlumniCards = (list) => {
             listItem.innerHTML = `
                 <div class="alumni-item-left">
                     <div class="member-name">${alum.name}</div>
-                    <div class="member-role">${alum.position && alum.position !== '-' ? alum.position : 'Member'}</div>
+                    <div class="member-role">${alum.position && alum.position !== '-' ? alum.position : 'Team Member'}</div>
                 </div>
                 <div class="alumni-item-right">
                     <div class="member-current">${alum.current}</div>
@@ -484,7 +494,7 @@ const renderAlumniCards = (list) => {
                 <div class="card-3d alumni-card">
                     <div class="card-3d-content">
                         <h4 class="member-name">${alum.name}</h4>
-                        <p class="member-role">${alum.position && alum.position !== '-' ? alum.position : 'Member'}</p>
+                        <p class="member-role">${alum.position && alum.position !== '-' ? alum.position : 'Team Member'}</p>
                         <p class="member-company">${alum.current}</p>
                         <div class="member-skills">
                             <span class="skill-badge">Batch of ${alum.batch}</span>

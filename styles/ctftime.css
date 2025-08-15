@@ -77,7 +77,8 @@
 
 .ctftime-stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 16px;
     margin-bottom: 32px;
     width: 100%;
@@ -269,23 +270,21 @@
 }
 
 .loading-spinner::after {
-    content: '';
+    content: '...';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(0, 255, 136, 0.3);
-    border-top: 2px solid #00ff88;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+    font-size: 2rem;
+    font-weight: bold;
+    animation: dots 1.5s infinite;
     margin-top: 20px;
 }
 
-@keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
 }
 
 .error-message {
@@ -329,10 +328,6 @@
         font-size: 1.2rem;
     }
     
-    .ctftime-data-source {
-        padding: 4px 8px;
-    }
-    
     .ctftime-profile-link {
         padding: 6px 12px;
         font-size: 0.8rem;
@@ -340,7 +335,6 @@
     }
     
     .ctftime-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
     
