@@ -263,7 +263,7 @@
 
 @media (max-width: 900px) {
     .interface-nav {
-        padding: 1rem;
+        padding: 0.4rem;
     }
 
     .nav-item {
@@ -928,7 +928,7 @@
     align-items: center;
     transition: all 0.3s ease;
 }
-  
+
 #sector-achievements .achievement-prize {
     font-weight: 700;
     color: var(--color-highlight);
@@ -963,7 +963,7 @@
         padding: 0.625rem 1rem;
         font-size: 0.8rem;
     }
-    
+
     #sector-achievements .achievement-item {
         padding: 0.875rem 1rem;
         margin-bottom: 0.625rem;
@@ -971,7 +971,7 @@
         grid-template-columns: 1fr 1.5fr 1fr;
         gap: 1rem;
     }
-    
+
     #sector-achievements .achievement-date {
         display: none;
     }
