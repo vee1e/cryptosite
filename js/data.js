@@ -200,19 +200,20 @@ window.addEventListener('resize', () => {
 
 const achievements = {
     ctfPerformance: [
-        { event: "NCIIPC and AICTE Pentathon 2025 at GGSIPU, Delhi", result: "1st Place", prize: "2,50,000 INR" },
-        { event: "BSides Bangalore - B5 CTF and W2 CTF", result: "1st and 2nd Place", prize: "22,000 INR" },
-        { event: "GIT X IIT Bombay Trust Lab CTF 2025", result: "1st Place", prize: "25,000 INR" },
-        { event: "CRAW CTF at Prometeo, IIT Jodhpur", result: "1st Place", prize: "25,000 INR" },
-        { event: "RVCE X IIT Bombay Trust Lab CTF 2024", result: "2nd Place", prize: "30,000 INR" }
+        { event: "NCIIPC & AICTE Pentathon 2025 at GGSIPU, Delhi", result: "1st Place",      prize: "2,50,000 INR", date: "May 2025" },
+        { event: "RVCE X IIT Bombay Trust Lab CTF 2024",           result: "2nd Place",      prize: "30,000 INR",   date: "June 2024" },
+        { event: "CRAW CTF at Prometeo, IIT Jodhpur",              result: "1st Place",      prize: "25,000 INR",   date: "February 2025" },
+        { event: "GIT X IIT Bombay Trust Lab CTF 2025",            result: "1st Place",      prize: "25,000 INR",   date: "May 2025" },
+        { event: "BSides Bangalore B5 CTF, W2 CTF",                result: "1st, 2nd Place", prize: "22,000 INR",   date: "June 2025" },
+        { event: "Securicum Independence Day CTF",                 result: "1st Place",      prize: "10,000 INR",   date: "August 2025" }
     ],
     hackathons: [
-        { event: "Smart India Hackathon 2024 at Indian Institute of Technology Jammu", result: "1st Place", prize: "1,00,000 INR" },
-        { event: "Smart India Hackathon 2023 at NIET Noida", result: "1st Place", prize: "1,00,000 INR" },
-        { event: "Data Security Council of India (DSCI) Cyber Grand Challenge", result: "Qualified 1st stage", prize: "5,00,000 INR" },
-        { event: "AICS ICONIP CyberAI Cup 2024", result: "3rd Place", prize: "1000 NZD" },
-        { event: "AICS ICONIP CyberAI Cup 2023", result: "1st Place", prize: "3000 NZD" },
-        { event: "Cyber Crimes Conclave, IISc Bangalore", result: "2nd Place", prize: "1,00,000 INR" }
+        { event: "DSCI Cyber Security Grand Challenge",      result: "Qualified", prize: "5,00,000 INR", date: "June 2025" },
+        { event: "Smart India Hackathon 2023 at NIET Noida", result: "1st Place", prize: "1,00,000 INR", date: "December 2023" },
+        { event: "Smart India Hackathon 2024 at IIT Jammu",  result: "1st Place", prize: "1,00,000 INR", date: "December 2024" },
+        { event: "Cyber Crimes Conclave, IISc Bangalore",    result: "2nd Place", prize: "1,00,000 INR", date: "February 2024" },
+        { event: "AICS ICONIP CyberAI Cup 2023",             result: "1st Place", prize: "3000 NZD",     date: "November 2023" },
+        { event: "AICS ICONIP CyberAI Cup 2024",             result: "3rd Place", prize: "1000 NZD",     date: "November 2024" }
     ]
 };
 
@@ -335,6 +336,7 @@ if (achievementsGrid) {
             <div class="achievement-prize">${item.prize}</div>
             <div class="achievement-event">${item.event}</div>
             <div class="achievement-place">${item.result}</div>
+            <div class="achievement-date">${item.date}</div>
         </li>`
     ).join('');
 
@@ -343,6 +345,7 @@ if (achievementsGrid) {
             <div class="achievement-prize">${item.prize}</div>
             <div class="achievement-event">${item.event}</div>
             <div class="achievement-place">${item.result}</div>
+            <div class="achievement-date">${item.date}</div>
         </li>`
     ).join('');
 
@@ -354,6 +357,7 @@ if (achievementsGrid) {
                     <div class="achievement-prize">Prize Money</div>
                     <div class="achievement-event">Competition</div>
                     <div class="achievement-place">Placement</div>
+                    <div class="achievement-date">Date</div>
                 </div>
                 <ul class="achievement-list">${ctfPerformanceHTML}</ul>
             </div>
@@ -364,6 +368,7 @@ if (achievementsGrid) {
                     <div class="achievement-prize">Prize Money</div>
                     <div class="achievement-event">Competition</div>
                     <div class="achievement-place">Placement</div>
+                    <div class="achievement-date">Date</div>
                 </div>
                 <ul class="achievement-list">${hackathonsHTML}</ul>
             </div>
@@ -462,18 +467,18 @@ const alumniData = [
     { name: "Siddharth Mittal",         batch: "2025", current: "NCIIPC",                     position: "forensics head",           linkedin: "https://www.linkedin.com/in/siddharth-mittal-/" },
     { name: "Sriyans Ketavarapu",       batch: "2025", current: "FIS Global",                 position: "ai head",                  linkedin: "https://www.linkedin.com/in/sriyansketavarapu/" },
 
-    { name: "Avanish Money Srivats",    batch: "2026", current: "ARM",                        position: "research head",            linkedin: "https://www.linkedin.com/in/avanish-money-srivats-9bb362234/" },
-    { name: "Ansh Goyal",               batch: "2026", current: "Dassault Systèmes",          position: "team manager",             linkedin: "https://www.linkedin.com/in/ansh-goyal/" },
-    { name: "Gurmann Ajmani",           batch: "2026", current: "Amazon",                     position: "ai head",                  linkedin: "https://www.linkedin.com/in/gurmann-singh-ajmani-a80a31262/" },
-    { name: "Ishan Surana",             batch: "2026", current: "AQR Capital Management",     position: "-",                        linkedin: "https://www.linkedin.com/in/ishansurana/" },
-    { name: "Nishant Gunda",            batch: "2026", current: "Cisco",                      position: "binary exploitation head", linkedin: "https://www.linkedin.com/in/nishant-gunda-96530b250/" },
-    { name: "Prashant K",               batch: "2026", current: "NetApp",                     position: "team leader",              linkedin: "https://www.linkedin.com/in/prashanth-j-kumar/" },
-    { name: "Rigved Waradpande",        batch: "2026", current: "Philips",                    position: "-",                        linkedin: "https://www.linkedin.com/in/rigved-waradpande-b0b147253/" },
-    { name: "Rupak Banerjee",           batch: "2026", current: "CloudDefense.AI",            position: "web exploitation head",    linkedin: "https://www.linkedin.com/in/rupak-banerjee-61509727b/" },
-    { name: "Tanmay Saxena",            batch: "2026", current: "Adani Group",                position: "cryptography head",        linkedin: "https://www.linkedin.com/in/tanmay-saxena-76aa85274/" },
-    { name: "Uday Ojha",                batch: "2026", current: "PGI Data",                   position: "reverse engineering Head", linkedin: "https://www.linkedin.com/in/uday-o/" },
-    { name: "Yogesh Prashant Rane",     batch: "2026", current: "Cisco",                      position: "forensics head",           linkedin: "https://www.linkedin.com/in/yogesh-rane-1b1064253/" },
-    { name: "Yvsr Akash",               batch: "2026", current: "ARM",                        position: "attack/defense head",      linkedin: "https://www.linkedin.com/in/yvsr-akash-995847184/" },
+    // { name: "Avanish Money Srivats",    batch: "2026", current: "ARM",                        position: "research head",            linkedin: "https://www.linkedin.com/in/avanish-money-srivats-9bb362234/" },
+    // { name: "Ansh Goyal",               batch: "2026", current: "Dassault Systèmes",          position: "team manager",             linkedin: "https://www.linkedin.com/in/ansh-goyal/" },
+    // { name: "Gurmann Ajmani",           batch: "2026", current: "Amazon",                     position: "ai head",                  linkedin: "https://www.linkedin.com/in/gurmann-singh-ajmani-a80a31262/" },
+    // { name: "Ishan Surana",             batch: "2026", current: "AQR Capital Management",     position: "-",                        linkedin: "https://www.linkedin.com/in/ishansurana/" },
+    // { name: "Nishant Gunda",            batch: "2026", current: "Cisco",                      position: "binary exploitation head", linkedin: "https://www.linkedin.com/in/nishant-gunda-96530b250/" },
+    // { name: "Prashant K",               batch: "2026", current: "NetApp",                     position: "team leader",              linkedin: "https://www.linkedin.com/in/prashanth-j-kumar/" },
+    // { name: "Rigved Waradpande",        batch: "2026", current: "Philips",                    position: "-",                        linkedin: "https://www.linkedin.com/in/rigved-waradpande-b0b147253/" },
+    // { name: "Rupak Banerjee",           batch: "2026", current: "CloudDefense.AI",            position: "web exploitation head",    linkedin: "https://www.linkedin.com/in/rupak-banerjee-61509727b/" },
+    // { name: "Tanmay Saxena",            batch: "2026", current: "Adani Group",                position: "cryptography head",        linkedin: "https://www.linkedin.com/in/tanmay-saxena-76aa85274/" },
+    // { name: "Uday Ojha",                batch: "2026", current: "PGI Data",                   position: "reverse engineering Head", linkedin: "https://www.linkedin.com/in/uday-o/" },
+    // { name: "Yogesh Prashant Rane",     batch: "2026", current: "Cisco",                      position: "forensics head",           linkedin: "https://www.linkedin.com/in/yogesh-rane-1b1064253/" },
+    // { name: "Yvsr Akash",               batch: "2026", current: "ARM",                        position: "attack/defense head",      linkedin: "https://www.linkedin.com/in/yvsr-akash-995847184/" },
 ];
 
 const alumniGrid = document.getElementById('alumni-grid');

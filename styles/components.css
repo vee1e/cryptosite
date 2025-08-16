@@ -888,7 +888,7 @@
 
 #sector-achievements .achievement-header {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
     gap: 1.5rem;
     padding: 0.75rem 1.25rem;
     margin-bottom: 0.5rem;
@@ -913,13 +913,17 @@
     text-align: center;
 }
 
+#sector-achievements .achievement-header .achievement-date {
+    text-align: center;
+}
+
 #sector-achievements .achievement-item {
     padding: 1rem 1.25rem;
     margin-bottom: 0.75rem;
     background-color: rgba(var(--color-bg-medium-rgb),0.4);
     border-radius: 8px;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
     gap: 1.5rem;
     align-items: center;
     transition: all 0.3s ease;
@@ -945,20 +949,27 @@
     color: var(--color-highlight);
 }
 
+#sector-achievements .achievement-date {
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    color: var(--color-text-muted);
+}
+
 @media (max-width: 768px) {
     #sector-achievements .achievement-header {
-        grid-template-columns: 1fr 1.5fr 1fr;
-        gap: 1rem;
+        grid-template-columns: 1fr 1.5fr 0.8fr 0.8fr;
+        gap: 0.75rem;
         padding: 0.625rem 1rem;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
     
     #sector-achievements .achievement-item {
         padding: 0.875rem 1rem;
         margin-bottom: 0.625rem;
-        font-size: 0.9rem;
-        grid-template-columns: 1fr 1.5fr 1fr;
-        gap: 1rem;
+        font-size: 0.85rem;
+        grid-template-columns: 1fr 1.5fr 0.8fr 0.8fr;
+        gap: 0.75rem;
     }
 }
 
