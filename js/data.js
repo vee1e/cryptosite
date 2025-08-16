@@ -200,21 +200,22 @@ window.addEventListener('resize', () => {
 
 const achievements = {
     ctfPerformance: [
-        { event: "NCIIPC & AICTE Pentathon 2025",         result: "1st Place", prize: "2,50,000 INR", date: "May 2025" },
-        { event: "RVCE X IIT Bombay Trust Lab CTF 2024",  result: "2nd Place", prize: "30,000 INR",   date: "June 2024" },
-        { event: "CRAW CTF at Prometeo, IIT Jodhpur",     result: "1st Place", prize: "25,000 INR",   date: "February 2025" },
-        { event: "GIT X IIT Bombay Trust Lab CTF 2025",   result: "1st Place", prize: "25,000 INR",   date: "May 2025" },
-        { event: "BSides Bangalore B5 CTF",               result: "1st Place", prize: "15,000 INR",   date: "June 2025" },
-        { event: "BSides Bangalore W2 CTF",               result: "2nd Place", prize: "7,000 INR",    date: "June 2025" },
-        { event: "Securicum Independence Day CTF",        result: "1st Place", prize: "10,000 INR",   date: "August 2025" }
+        { event: "NCIIPC & AICTE Pentathon 2025",        result: "1st Place", prize: "2,50,000 INR", date: "May 2025",      link: "https://www.linkedin.com/posts/cryptonite-mit_pentathon2025-cybersecurity-activity-7327746895156563968-9Suw" },
+        { event: "RVCE X IIT Bombay Trust Lab CTF 2024", result: "2nd Place", prize: "30,000 INR",   date: "June 2024",     link: "https://www.linkedin.com/posts/cryptonite-mit_ctf2025-cybersecurity-hacktheflag-activity-7330500497231007744-py_6" },
+        { event: "CRAW CTF at Prometeo, IIT Jodhpur",    result: "1st Place", prize: "25,000 INR",   date: "February 2025", link: "https://www.linkedin.com/posts/cryptonite-mit_crawsec-prometeo2025-itinnovation-activity-7287822560791015427-GUej" },
+        { event: "GIT X IIT Bombay Trust Lab CTF 2025",  result: "1st Place", prize: "25,000 INR",   date: "May 2025",      link: "https://www.linkedin.com/posts/cryptonite-mit_ctf2025-cybersecurity-hacktheflag-activity-7330500497231007744-py_6" },
+        { event: "KJSSE CTF",                            result: "1st Place", prize: "15,000 INR",   date: "February 2025", link: "https://www.linkedin.com/posts/cryptonite-mit_ctf-cybersecurity-activity-7294965557664120834-euXv" },
+        { event: "Securicum Independence Day CTF",       result: "1st Place", prize: "10,000 INR",   date: "August 2025",   link: "" },
+        { event: "BSides Bangalore B5 CTF",              result: "1st Place", prize: "15,000 INR",   date: "June 2025",     link: "https://www.linkedin.com/posts/cryptonite-mit_b5ctf-w2ctf-bsidesbangalore-activity-7353522564335353859-kiuo" },
+        { event: "BSides Bangalore W2 CTF",              result: "2nd Place", prize: "7,000 INR",    date: "June 2025",     link: "https://www.linkedin.com/posts/cryptonite-mit_b5ctf-w2ctf-bsidesbangalore-activity-7353522564335353859-kiuo" },
     ],
     hackathons: [
-        { event: "DSCI Cyber Security Grand Challenge",   result: "Qualified", prize: "5,00,000 INR", date: "June 2025" },
-        { event: "Smart India Hackathon 2023 (PS 1454)",  result: "1st Place", prize: "1,00,000 INR", date: "December 2023" },
-        { event: "Smart India Hackathon 2024 (PS 1749)",  result: "1st Place", prize: "1,00,000 INR", date: "December 2024" },
-        { event: "Cyber Crimes Conclave, IISc Bangalore", result: "2nd Place", prize: "1,00,000 INR", date: "February 2024" },
-        { event: "AICS ICONIP CyberAI Cup 2023",          result: "1st Place", prize: "3,000 NZD",    date: "November 2023" },
-        { event: "AICS ICONIP CyberAI Cup 2024",          result: "3rd Place", prize: "1,000 NZD",    date: "November 2024" }
+        { event: "DSCI Cyber Security Grand Challenge",   result: "Qualified", prize: "5,00,000 INR", date: "June 2025", link: "https://static.mygov.in/static/s3fs-public/mygov_1747831020122933441.pdf" },
+        { event: "Smart India Hackathon 2023 (PS 1454)",  result: "1st Place", prize: "1,00,000 INR", date: "December 2023", link: "https://www.instagram.com/p/C1KBjH9vjXr/" },
+        { event: "Smart India Hackathon 2024 (PS 1749)",  result: "1st Place", prize: "1,00,000 INR", date: "December 2024", link: "https://www.linkedin.com/posts/cryptonite-mit_team-cryptonites-nitewatch-clinched-the-activity-7274997714784845824-d71d" },
+        { event: "Cyber Crimes Conclave, IISc Bangalore", result: "2nd Place", prize: "1,00,000 INR", date: "February 2024", link: "https://www.instagram.com/p/C5bch3gtn9O/" },
+        { event: "AICS ICONIP CyberAI Cup 2023",          result: "1st Place", prize: "3,000 NZD",    date: "November 2023", link: "" },
+        { event: "AICS ICONIP CyberAI Cup 2024",          result: "3rd Place", prize: "1,000 NZD",    date: "November 2024", link: "" }
     ]
 };
 
@@ -335,7 +336,7 @@ if (achievementsGrid) {
     const ctfPerformanceHTML = achievements.ctfPerformance.map(item =>
         `<li class="achievement-item">
             <div class="achievement-prize">${item.prize}</div>
-            <div class="achievement-event">${item.event}</div>
+            <div class="achievement-event">${item.link ? `<a href="${item.link}" target="_blank" class="competition-link">${item.event}</a>` : item.event}</div>
             <div class="achievement-place">${item.result}</div>
             <div class="achievement-date">${item.date}</div>
         </li>`
@@ -344,7 +345,7 @@ if (achievementsGrid) {
     const hackathonsHTML = achievements.hackathons.map(item =>
         `<li class="achievement-item">
             <div class="achievement-prize">${item.prize}</div>
-            <div class="achievement-event">${item.event}</div>
+            <div class="achievement-event">${item.link ? `<a href="${item.link}" target="_blank" class="competition-link">${item.event}</a>` : item.event}</div>
             <div class="achievement-place">${item.result}</div>
             <div class="achievement-date">${item.date}</div>
         </li>`
