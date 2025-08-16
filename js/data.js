@@ -200,21 +200,21 @@ window.addEventListener('resize', () => {
 
 const achievements = {
     ctfPerformance: [
-        { event: "NCIIPC & AICTE Pentathon 2025 at GGSIPU, Delhi", result: "1st Place",      prize: "2,50,000 INR", date: "May 2025" },
-        { event: "RVCE X IIT Bombay Trust Lab CTF 2024",           result: "2nd Place",      prize: "30,000 INR",   date: "June 2024" },
-        { event: "CRAW CTF at Prometeo, IIT Jodhpur",              result: "1st Place",      prize: "25,000 INR",   date: "February 2025" },
-        { event: "GIT X IIT Bombay Trust Lab CTF 2025",            result: "1st Place",      prize: "25,000 INR",   date: "May 2025" },
-        { event: "BSides Bangalore B5 CTF",                        result: "1st Place",      prize: "15,000 INR", date: "June 2025" },
-        { event: "BSides Bangalore W2 CTF",                        result: "2nd Place",      prize: "7,000 INR", date: "June 2025" },
-        { event: "Securicum Independence Day CTF",                 result: "1st Place",      prize: "10,000 INR",   date: "August 2025" }
+        { event: "NCIIPC & AICTE Pentathon 2025",         result: "1st Place", prize: "2,50,000 INR", date: "May 2025" },
+        { event: "RVCE X IIT Bombay Trust Lab CTF 2024",  result: "2nd Place", prize: "30,000 INR",   date: "June 2024" },
+        { event: "CRAW CTF at Prometeo, IIT Jodhpur",     result: "1st Place", prize: "25,000 INR",   date: "February 2025" },
+        { event: "GIT X IIT Bombay Trust Lab CTF 2025",   result: "1st Place", prize: "25,000 INR",   date: "May 2025" },
+        { event: "BSides Bangalore B5 CTF",               result: "1st Place", prize: "15,000 INR",   date: "June 2025" },
+        { event: "BSides Bangalore W2 CTF",               result: "2nd Place", prize: "7,000 INR",    date: "June 2025" },
+        { event: "Securicum Independence Day CTF",        result: "1st Place", prize: "10,000 INR",   date: "August 2025" }
     ],
     hackathons: [
-        { event: "DSCI Cyber Security Grand Challenge",      result: "Qualified", prize: "5,00,000 INR", date: "June 2025" },
-        { event: "Smart India Hackathon 2023 at NIET Noida", result: "1st Place", prize: "1,00,000 INR", date: "December 2023" },
-        { event: "Smart India Hackathon 2024 at IIT Jammu",  result: "1st Place", prize: "1,00,000 INR", date: "December 2024" },
-        { event: "Cyber Crimes Conclave, IISc Bangalore",    result: "2nd Place", prize: "1,00,000 INR", date: "February 2024" },
-        { event: "AICS ICONIP CyberAI Cup 2023",             result: "1st Place", prize: "3,000 NZD",    date: "November 2023" },
-        { event: "AICS ICONIP CyberAI Cup 2024",             result: "3rd Place", prize: "1,000 NZD",    date: "November 2024" }
+        { event: "DSCI Cyber Security Grand Challenge",   result: "Qualified", prize: "5,00,000 INR", date: "June 2025" },
+        { event: "Smart India Hackathon 2023 (PS 1454)",  result: "1st Place", prize: "1,00,000 INR", date: "December 2023" },
+        { event: "Smart India Hackathon 2024 (PS 1749)",  result: "1st Place", prize: "1,00,000 INR", date: "December 2024" },
+        { event: "Cyber Crimes Conclave, IISc Bangalore", result: "2nd Place", prize: "1,00,000 INR", date: "February 2024" },
+        { event: "AICS ICONIP CyberAI Cup 2023",          result: "1st Place", prize: "3,000 NZD",    date: "November 2023" },
+        { event: "AICS ICONIP CyberAI Cup 2024",          result: "3rd Place", prize: "1,000 NZD",    date: "November 2024" }
     ]
 };
 
