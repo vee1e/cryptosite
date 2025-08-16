@@ -249,7 +249,7 @@ function displayFallbackData() {
             "2025": {
                 "rating_place": 28,
                 "organizer_points": 79.74,
-                "rating_points": 447.813339549,
+                "rating_points": 448.813339549,
                 "country_place": 2
             },
             "2024": {
