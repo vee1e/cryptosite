@@ -115,7 +115,6 @@ const boardMembers = [
 const boardMembers3rdYear = [
     { name: "Aditya Ram Sharma",          alias: "{snapskillz}",     avatar: "", linkedin: "", github: "", instagram: "",},
     { name: "Adwait Gupta",               alias: "{pookiemon}",      avatar: "", linkedin: "", github: "", instagram: "",},
-    { name: "Ashmit Sugoor",              alias: "{ashmit}",         avatar: "", linkedin: "", github: "", instagram: "",},
     { name: "Dhruva Deepak",              alias: "{kua}",            avatar: "", linkedin: "", github: "", instagram: "",},
     { name: "Guru Asrith Nakka",          alias: "{masterraider}",   avatar: "", linkedin: "", github: "", instagram: "",},
     { name: "Kaaviya Kalyanakumar",       alias: "{enigmatronix13}", avatar: "", linkedin: "", github: "", instagram: "",},
