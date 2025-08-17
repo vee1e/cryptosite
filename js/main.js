@@ -65,13 +65,8 @@ if (footerTextElement) {
     footerTextElement.textContent = `© ${year} Cryptonite - MIT Manipal. All rights reserved.`;
 }
 
-function preloadFallbackData() {
-    console.log('Loading fallback data');
-    displayFallbackData();
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    preloadFallbackData();
+    displayFallbackData();
     
     setTimeout(() => {
         fetchCTFtimeStats();
@@ -202,6 +197,7 @@ async function fetchCTFtimeStats() {
 
     const controllers = [];
     const timeouts = [];
+    let successFound = false;
 
     const requests = proxyStrategies.map((strategy, index) => {
         const controller = new AbortController();
@@ -211,20 +207,28 @@ async function fetchCTFtimeStats() {
 
         return strategy.fetch(targetUrl)
             .then(data => {
+                if (successFound) {
+                    throw new Error('Another proxy already succeeded');
+                }
                 if (!data || !data.rating) {
                     throw new Error(`Invalid data format from ${strategy.name}`);
                 }
-                console.log(`Successfully fetched data using ${strategy.name}`);
+                successFound = true;
+                controllers.forEach(c => { if (!c.signal.aborted) c.abort(); });
+                timeouts.forEach(id => clearTimeout(id));
                 return { data, source: strategy.name };
             })
             .catch(error => {
+                if (successFound) return;
                 console.warn(`${strategy.name} failed:`, error.message);
                 throw error;
             });
     });
 
     const globalTimeout = setTimeout(() => {
-        controllers.forEach(c => { if (!c.signal.aborted) c.abort(); });
+        if (!successFound) {
+            controllers.forEach(c => { if (!c.signal.aborted) c.abort(); });
+        }
     }, 15000);
 
     try {
@@ -235,13 +239,17 @@ async function fetchCTFtimeStats() {
         
 
     } catch (error) {
-        clearTimeout(globalTimeout);
-        console.warn('All strategies failed:', error);
-        
-        handleFetchError(error);
+        if (!successFound) {
+            clearTimeout(globalTimeout);
+            console.warn('All strategies failed:', error);
+            
+            handleFetchError(error);
+        }
     } finally {
-        timeouts.forEach(id => clearTimeout(id));
-        controllers.forEach(c => { if (!c.signal.aborted) c.abort(); });
+        if (!successFound) {
+            timeouts.forEach(id => clearTimeout(id));
+            controllers.forEach(c => { if (!c.signal.aborted) c.abort(); });
+        }
     }
 }
 
@@ -293,7 +301,7 @@ function displayFallbackData() {
             "2025": {
                 "rating_place": 28,
                 "organizer_points": 79.74,
-                "rating_points": 448.813339549,
+                "rating_points": 456.813339549,
                 "country_place": 2
             },
             "2024": {
@@ -474,10 +482,4 @@ function createYearlyChart(rating) {
     return chartHTML;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    fetchCTFtimeStats();
-    initializeNavigation();
-    initializeScrollEffects();
-    initializeFooter();
-    initializeLandingCTA();
-});
+
