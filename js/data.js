@@ -1,13 +1,85 @@
 const subsystems = [
-    { id: "ad",       name: "Attack/Defense",         cardId: "SYS-1099-AD", icon: "assets/domain-logos/atk-def.png",      flavor: "Digital chess, where every move is critical.",   desc: "Dual-focus domain combining offensive security (vulnerability discovery, exploitation) with defensive operations (system hardening, incident response). Requires expertise in network protocols, system architecture, and advanced security tools for both attack simulation and defense.", tools: ["Metasploit", "Cobalt Strike", "Wireshark"], counter: "IDS/IPS, Threat Intel, Patching." },
-    { id: "binexp",   name: "Binary Exploitation",    cardId: "SYS-0421-BE", icon: "assets/domain-logos/binex.png",      flavor: "Making programs dance to our tune.",             desc: "Advanced software exploitation focusing on memory corruption and binary analysis. Involves crafting exploits for buffer overflows, format strings, and use-after-free vulnerabilities. Requires expertise in assembly, memory management, and modern protections.", tools: ["GDB", "IDA Pro", "pwntools"], counter: "ASLR, DEP, Stack Canaries." },
-    { id: "crypto",   name: "Cryptography",           cardId: "SYS-3141-CR", icon: "assets/domain-logos/crypto.png",   flavor: "Secrets encoded, puzzles to be unraveled.",      desc: "Mathematical security through encryption and authentication. Covers classical ciphers, modern cryptography (RSA, ECC), and implementation security. Analyzes cryptographic vulnerabilities including side-channel attacks and protocol weaknesses.", tools: ["CrypTool", "Hashcat", "SageMath"], counter: "Strong algorithms, proper implementation." },
-    { id: "forensics",name: "Digital Forensics",      cardId: "SYS-8008-DF", icon: "assets/domain-logos/forensic.png", flavor: "Sifting through the digital ashes for truth.",   desc: "Digital evidence analysis through file system forensics, memory analysis, and network traffic investigation. Focuses on data recovery, timeline reconstruction, and malware analysis using industry-standard forensic tools.", tools: ["Autopsy", "Volatility", "FTK Imager"], counter: "Log retention, disk imaging, anti-tamper." },
-    { id: "hardware", name: "Hardware Security",      cardId: "SYS-9001-HW", icon: "assets/domain-logos/hardware.png",      flavor: "Where silicon meets exploit.",                   desc: "Physical device security through firmware analysis, side-channel attacks, and hardware interfaces. Uses specialized equipment for signal analysis and fault injection. Combines electrical engineering with security principles.", tools: ["Bus Pirate", "JTAGulator", "ChipWhisperer"], counter: "Secure boot, anti-tamper hardware." },
-    { id: "research", name: "Research and AI",        cardId: "SYS-0001-RD", icon: "assets/domain-logos/research.png", flavor: "Charting the unknown territories of cyber.",     desc: "Explores the convergence of AI and cybersecurity. Develops AI-powered security solutions while researching adversarial machine learning and AI vulnerabilities. Advances both pure AI applications and core cybersecurity through innovative research.", tools: ["TensorFlow", "PyTorch", "Custom ML Models"], counter: "Proactive analysis, threat modeling." },
-    { id: "reveng",   name: "Reverse Engineering",    cardId: "SYS-1234-RE", icon: "assets/domain-logos/reverse.png",      flavor: "Taking things apart to see how they tick.",      desc: "Analyzes compiled software through decompilation, debugging, and code reconstruction. Focuses on malware analysis and vulnerability discovery. Requires mastery of assembly, debugging tools, and operating system internals.", tools: ["Ghidra", "x64dbg", "IDA Pro"], counter: "Obfuscation, anti-debug techniques." },
-    { id: "webexp",   name: "Web Exploitation",       cardId: "SYS-8080-WE", icon: "assets/domain-logos/webex.png",      flavor: "The wild west of the internet, tamed.",          desc: "Web application security through vulnerability assessment and exploitation. Masters SQL injection, XSS, auth bypass, and API security. Combines automated scanning with manual analysis of web technologies.", tools: ["Burp Suite", "sqlmap", "OWASP ZAP"], counter: "Input sanitization, WAF, secure coding." },
-    { id: "mgmt",     name: "Management",             cardId: "SYS-5000-OD", icon: "assets/domain-logos/mgmt.png",     flavor: "The architects and conductors of the symphony.", desc: "Orchestrates cybersecurity operations and cross-domain projects. Specializes in technical project management, security event coordination, and industry partnerships. Bridges technical expertise with organizational efficiency.", tools: ["Trello", "Discord", "Figma"], counter: "Clear communication, agile methods." }
+    {
+        id: "ad",
+        name: "Attack/Defense",
+        cardId: "SYS-1099-AD",
+        icon: "assets/domain-logos/atk-def.png",
+        flavor: "Digital chess, where every move is critical.",
+        desc: "Dual-focus domain combining offensive security (vulnerability discovery, exploitation) with defensive operations (system hardening, incident response). Expertise in network protocols, system architecture, and advanced security tools.",
+        tools: ["Metasploit", "Cobalt Strike", "Wireshark"],
+    },
+    {
+        id: "binexp",
+        name: "Binary Exploitation",
+        cardId: "SYS-0421-BE",
+        icon: "assets/domain-logos/binex.png",
+        flavor: "Making programs dance to our tune.",
+        desc: "Low-level software exploitation focusing on memory corruption and binary analysis. Involves crafting exploits for buffer overflows, format strings, and use-after-free vulnerabilities. Requires expertise in assembly, memory management, and modern protections.",
+        tools: ["GDB", "IDA Pro", "pwntools"],
+    },
+    {
+        id: "crypto",
+        name: "Cryptography",
+        cardId: "SYS-3141-CR",
+        icon: "assets/domain-logos/crypto.png",
+        flavor: "Secrets encoded, puzzles to be unraveled.",
+        desc: "Mathematical security through encryption and authentication. Covers classical ciphers, modern cryptography (RSA, ECC), and implementation security. Analyzes cryptographic vulnerabilities including side-channel attacks and protocol weaknesses.",
+        tools: ["CrypTool", "Hashcat", "SageMath"],
+    },
+    {
+        id: "forensics",
+        name: "Digital Forensics",
+        cardId: "SYS-8008-DF",
+        icon: "assets/domain-logos/forensic.png",
+        flavor: "Sifting through the digital ashes for truth.",
+        desc: "Digital evidence analysis through file system forensics, memory analysis, and network traffic investigation. Focuses on data recovery, timeline reconstruction, and malware analysis using industry-standard forensic tools.",
+        tools: ["Autopsy", "Volatility", "FTK Imager"],
+    },
+    {
+        id: "hardware",
+        name: "Hardware Security",
+        cardId: "SYS-9001-HW",
+        icon: "assets/domain-logos/hardware.png",
+        flavor: "Where silicon meets exploit.",
+        desc: "Physical device security through firmware analysis, side-channel attacks, and hardware interfaces. Uses specialized equipment for signal analysis and fault injection. Combines electrical engineering with security principles.",
+        tools: ["Bus Pirate", "JTAGulator", "ChipWhisperer"],
+    },
+    {
+        id: "research",
+        name: "Research and AI",
+        cardId: "SYS-0001-RD",
+        icon: "assets/domain-logos/research.png",
+        flavor: "Charting the unknown territories of cyber.",
+        desc: "Explores the convergence of AI and cybersecurity. Develops AI-powered security solutions while researching adversarial machine learning and AI vulnerabilities. Advances both pure AI applications and core cybersecurity through innovative research.",
+        tools: ["TensorFlow", "PyTorch", "Custom ML Models"],
+    },
+    {
+        id: "reveng",
+        name: "Reverse Engineering",
+        cardId: "SYS-1234-RE",
+        icon: "assets/domain-logos/reverse.png",
+        flavor: "Taking things apart to see how they tick.",
+        desc: "Analyzes compiled software through decompilation, debugging, and code reconstruction. Focuses on malware analysis and vulnerability discovery. Requires mastery of assembly, debugging tools, and operating system internals.",
+        tools: ["Ghidra", "x64dbg", "IDA Pro"],
+    },
+    {
+        id: "webexp",
+        name: "Web Exploitation",
+        cardId: "SYS-8080-WE",
+        icon: "assets/domain-logos/webex.png",
+        flavor: "The wild west of the internet, tamed.",
+        desc: "Web application security through vulnerability assessment and exploitation. Masters SQL injection, XSS, auth bypass, and API security. Combines automated scanning with manual analysis of web technologies.",
+        tools: ["Burp Suite", "sqlmap", "OWASP ZAP"],
+    },
+    {
+        id: "mgmt",
+        name: "Management",
+        cardId: "SYS-5000-OD",
+        icon: "assets/domain-logos/mgmt.png",
+        flavor: "The architects and conductors of the symphony.",
+        desc: "Orchestrates cybersecurity operations and cross-domain projects. Specializes in technical project management, security event coordination, and industry partnerships. Bridges technical expertise with organizational efficiency.",
+        tools: ["Trello", "Discord", "Figma"],
+    }
 ];
 
 const boardMembers = [
@@ -155,7 +227,7 @@ const createSubsystemCards = () => {
             const cardWrapper = document.createElement('div');
             cardWrapper.classList.add('subsystem-card');
 
-            const toolsList = sub.tools ? `Using tools like ${sub.tools.join(', ')}.` : '';
+            const toolsList = sub.tools ? `<br><br>Utilized tools: ${sub.tools.join(', ')}.` : '';
             const detailedDescription = `${sub.desc} ${toolsList}`;
 
             cardWrapper.innerHTML = `
