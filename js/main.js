@@ -65,7 +65,18 @@ if (footerTextElement) {
     footerTextElement.textContent = `© ${year} Cryptonite - MIT Manipal. All rights reserved.`;
 }
 
+function preloadFallbackData() {
+    console.log('Loading fallback data');
+    displayFallbackData();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    preloadFallbackData();
+    
+    setTimeout(() => {
+        fetchCTFtimeStats();
+    }, 1000);
+    
     initializeNavigation();
     initializeScrollEffects();
     initializeFooter();
@@ -134,12 +145,17 @@ function initializeFooter() {
 function initializeLandingCTA() {
     const btn = document.querySelector('.recruitment-btn');
     if (!btn) return;
+    
     if (landingCtaMode === 'nitectf') {
-         btn.setAttribute('href', niteCtfUrl);
-         btn.setAttribute('target', '_blank');
-         btn.innerHTML = '<i class="fas fa-bolt"></i> niteCTF IS LIVE!';
+        btn.setAttribute('href', niteCtfUrl);
+        btn.setAttribute('target', '_blank');
+        btn.innerHTML = '<i class="fas fa-bolt"></i> niteCTF IS LIVE!';
+    } else if (landingCtaMode === 'recruitments') {
+        btn.setAttribute('href', 'https://apply.cryptonitemit.in');
+        btn.setAttribute('target', '_blank');
+        btn.innerHTML = '<i class="fas fa-users"></i> We\'re Recruiting!';
     } else if (landingCtaMode === 'off') {
-         btn.remove();
+        btn.remove();
     }
 }
 
@@ -150,65 +166,78 @@ async function fetchCTFtimeStats() {
     yearlyChart.innerHTML = '<div class="loading-spinner">Loading CTFtime data...</div>';
 
     const targetUrl = 'https://ctftime.org/api/v1/teams/62713/';
-    const proxyBuilders = [
-        (url) => url,
-        (url) => 'https://api.allorigins.win/get?url=' + encodeURIComponent(url),
-        (url) => 'https://cors-anywhere.herokuapp.com/' + url,
-        (url) => 'https://thingproxy.freeboard.io/fetch/' + url,
+    
+    const proxyStrategies = [
+        {
+            name: 'CORS Proxy 1',
+            fetch: async (url) => {
+                const response = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`, {
+                    headers: { 'Accept': 'application/json' },
+                    signal: AbortSignal.timeout(8000)
+                });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.json();
+            }
+        },
+        {
+            name: 'CORS Proxy 2',
+            fetch: async (url) => {
+                const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, {
+                    headers: { 'Accept': 'application/json' },
+                    signal: AbortSignal.timeout(8000)
+                });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                if (data.contents) {
+                    try {
+                        return JSON.parse(data.contents);
+                    } catch (e) {
+                        return data.contents;
+                    }
+                }
+                return data;
+            }
+        }
     ];
 
     const controllers = [];
     const timeouts = [];
 
-    const requests = proxyBuilders.map((build, index) => {
+    const requests = proxyStrategies.map((strategy, index) => {
         const controller = new AbortController();
         controllers.push(controller);
-        const individualTimeout = index === 0 ? 2000 : 3000 + (index * 500);
-        const timeoutId = setTimeout(() => controller.abort(), individualTimeout);
+        const timeoutId = setTimeout(() => controller.abort(), 10000 + (index * 2000));
         timeouts.push(timeoutId);
 
-        return fetch(build(targetUrl), {
-            signal: controller.signal,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return response.json();
-            })
+        return strategy.fetch(targetUrl)
             .then(data => {
-                let actualData;
-                if (data.contents) {
-                    try {
-                        actualData = JSON.parse(data.contents);
-                    } catch (e) {
-                        actualData = data.contents;
-                    }
-                } else {
-                    actualData = data;
+                if (!data || !data.rating) {
+                    throw new Error(`Invalid data format from ${strategy.name}`);
                 }
-                if (!actualData || !actualData.rating) throw new Error('Invalid data format received from CTFtime API');
-                return actualData;
+                console.log(`Successfully fetched data using ${strategy.name}`);
+                return { data, source: strategy.name };
             })
             .catch(error => {
-                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-                    throw new Error('CORS or CSP blocked request');
-                }
+                console.warn(`${strategy.name} failed:`, error.message);
                 throw error;
             });
     });
 
     const globalTimeout = setTimeout(() => {
         controllers.forEach(c => { if (!c.signal.aborted) c.abort(); });
-    }, 5000);
+    }, 15000);
 
     try {
-        const data = await Promise.any(requests);
+        const result = await Promise.any(requests);
         clearTimeout(globalTimeout);
-        displayCTFtimeStats(data);
+        
+        displayCTFtimeStats(result.data);
+        
+
     } catch (error) {
         clearTimeout(globalTimeout);
+        console.warn('All strategies failed:', error);
+        
         handleFetchError(error);
     } finally {
         timeouts.forEach(id => clearTimeout(id));
@@ -216,17 +245,30 @@ async function fetchCTFtimeStats() {
     }
 }
 
+
+
+
+
+
+
 function handleFetchError(error) {
-    console.error('All proxies failed:', error);
+    console.error('All strategies failed:', error);
 
     let errorMessage = 'Failed to load CTFtime data from all sources.';
     if (error.name === 'AbortError') {
         errorMessage = 'All requests timed out. Please check your connection.';
+    } else if (error.message.includes('CORS')) {
+        errorMessage = 'CORS restrictions prevented data loading. This is a browser security feature.';
     }
 
     const yearlyChart = document.getElementById('yearly-chart');
     if (yearlyChart) {
-        yearlyChart.innerHTML = `<div class="error-message">${errorMessage}<br><button onclick="fetchCTFtimeStats()" class="retry-btn">Retry</button></div>`;
+        yearlyChart.innerHTML = `
+            <div class="error-message">
+                ${errorMessage}<br><br>
+                <button onclick="fetchCTFtimeStats()" class="retry-btn">Retry</button>
+            </div>
+        `;
     }
 
     const statElements = [
@@ -241,9 +283,11 @@ function handleFetchError(error) {
     displayFallbackData();
 }
 
+
+
+
+
 function displayFallbackData() {
-
-
     const fallbackData = {
         rating: {
             "2025": {
