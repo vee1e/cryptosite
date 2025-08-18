@@ -79,29 +79,73 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeNavigation() {
+    if (window.__navInitialized) return;
+    window.__navInitialized = true;
     const hamburgerMenu = document.getElementById('hamburger-menu');
     const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
 
     if (hamburgerMenu && mobileNav) {
-        hamburgerMenu.addEventListener('click', function() {
-            hamburgerMenu.classList.toggle('active');
-            mobileNav.classList.toggle('active');
+        const openMenu = () => {
+            mobileNav.classList.add('active');
+            document.documentElement.classList.add('menu-open');
+        };
+        const closeMenu = () => {
+            mobileNav.classList.remove('active');
+            document.documentElement.classList.remove('menu-open');
+        };
+        const toggleMenu = (event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            if (mobileNav.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        };
+
+        let lastTouchTime = 0;
+        hamburgerMenu.addEventListener('touchend', function(e) {
+            lastTouchTime = Date.now();
+            toggleMenu(e);
+        }, { passive: false });
+        hamburgerMenu.addEventListener('click', function(e) {
+            if (Date.now() - lastTouchTime < 700) return;
+            toggleMenu(e);
         });
 
         const mobileNavItems = mobileNav.querySelectorAll('.mobile-nav-item');
         mobileNavItems.forEach(item => {
             item.addEventListener('click', function() {
-                hamburgerMenu.classList.remove('active');
-                mobileNav.classList.remove('active');
+                closeMenu();
             });
         });
 
+        if (mobileNavClose) {
+            mobileNavClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeMenu();
+            });
+            mobileNavClose.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeMenu();
+            }, { passive: false });
+        }
+
         document.addEventListener('click', function(event) {
             if (!hamburgerMenu.contains(event.target) && !mobileNav.contains(event.target)) {
-                hamburgerMenu.classList.remove('active');
-                mobileNav.classList.remove('active');
+                closeMenu();
             }
         });
+        document.addEventListener('touchstart', function(event) {
+            if (!hamburgerMenu.contains(event.target) && !mobileNav.contains(event.target)) {
+                closeMenu();
+            }
+        }, { passive: true });
     }
 }
 
@@ -453,12 +497,10 @@ function createYearlyChart(rating) {
 
     // Add x-axis labels (exclude 2018)
     chartHTML += '<div class="x-axis">';
-    years.forEach((year, idx) => {
+    years.forEach((year) => {
         if (year !== '2018') {
             const xPos = (years.indexOf(year) / (years.length - 1)) * 100;
-            let xAlign = '-50%';
-            if (idx === 0) xAlign = '0%';
-            if (idx === years.length - 1) xAlign = '-100%';
+            const xAlign = '-50%';
             chartHTML += `<div class="x-tick" style="left: ${xPos}%; --x-align: ${xAlign}"><span>${year}</span></div>`;
         }
     });
@@ -481,5 +523,6 @@ function createYearlyChart(rating) {
     chartHTML += '</div>'; // Close yearly-line-chart
     return chartHTML;
 }
+
 
 
